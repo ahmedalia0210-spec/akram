@@ -348,6 +348,19 @@
     </style>
 </head>
 <body>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+  import { getDatabase } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+  import { firebaseConfig } from "./firebase-config.js";
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  console.log("✔️ الموقع متصل بـ Firebase");
+</script>
+
     <!-- الرأس -->
     <header>
         <div class="container header-content">
@@ -893,3 +906,4 @@
     </script>
 </body>
 </html>
+
