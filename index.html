@@ -329,6 +329,15 @@
             transform: translateX(0);
         }
 
+        .sync-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
         footer {
             background: var(--dark-color);
             color: white;
@@ -429,10 +438,15 @@
             </div>
             
             <div id="admin-dashboard" class="admin-dashboard">
+                <div class="sync-notice">
+                    <strong>ملاحظة هامة:</strong> التغييرات التي تجريها هنا تحفظ على هذا الجهاز فقط. لن تظهر على الأجهزة الأخرى إلا إذا قمت بنسخ كود التطبيق مع البيانات الجديدة ونشرته على الخادم.
+                </div>
+                
                 <div class="admin-tabs">
                     <div class="admin-tab active" onclick="showAdminTab('numbers')">إدارة الأرقام</div>
                     <div class="admin-tab" onclick="showAdminTab('settings')">الإعدادات</div>
                     <div class="admin-tab" onclick="showAdminTab('requests')">الطلبات</div>
+                    <div class="admin-tab" onclick="showAdminTab('export')">استيراد/تصدير</div>
                 </div>
                 
                 <div class="admin-content">
@@ -493,6 +507,23 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    <div id="admin-export" class="admin-tab-content" style="display:none">
+                        <h3>استيراد وتصدير البيانات</h3>
+                        <div class="form-group">
+                            <label>تصدير البيانات (لنشرها على الخادم):</label>
+                            <button class="btn" onclick="exportData()">تصدير البيانات</button>
+                            <textarea id="export-data" rows="6" style="width: 100%; margin-top: 10px; display: none;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="import-data">استيراد البيانات:</label>
+                            <textarea id="import-data" rows="6" style="width: 100%;" placeholder="الصق بيانات التصدير هنا"></textarea>
+                            <button class="btn" onclick="importData()" style="margin-top: 10px;">استيراد البيانات</button>
+                        </div>
+                        <p class="sync-notice">
+                            لضمان تحديث الإعدادات على جميع الأجهزة، يجب نسخ بيانات التصدير ولصقها في متغير `appData` في كود HTML على الخادم.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -537,7 +568,18 @@
         function saveData() {
             localStorage.setItem('virtualNumbersApp', JSON.stringify(appData));
             updateUI();
+            
+            // إعلام النوافذ الأخرى بالتحديث (تعمل فقط في نفس المتصفح على أجهزة مختلفة)
+            window.localStorage.setItem('virtualNumbersAppUpdate', Date.now().toString());
         }
+
+        // الاستماع للتحديثات من النوافذ الأخرى
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'virtualNumbersAppUpdate') {
+                loadData();
+                showNotification('تم تحديث البيانات من مصدر آخر');
+            }
+        });
 
         // تحديث واجهة المستخدم بناءً على البيانات
         function updateUI() {
@@ -651,6 +693,15 @@
                 document.getElementById('main-page').style.display = 'block';
             } else if (pageId === 'admin') {
                 document.getElementById('admin-panel').style.display = 'block';
+                
+                // إذا كان مسجلاً دخوله بالفعل، إظهار لوحة التحكم
+                if (appData.isAdmin) {
+                    document.getElementById('admin-login').style.display = 'none';
+                    document.getElementById('admin-dashboard').style.display = 'block';
+                } else {
+                    document.getElementById('admin-login').style.display = 'block';
+                    document.getElementById('admin-dashboard').style.display = 'none';
+                }
             }
         }
 
@@ -799,6 +850,27 @@
                                                          offer.country === 'الإمارات' ? 'uae' : 
                                                          offer.country === 'الكويت' ? 'kuwait' : 'egypt';
                 showNotification(`تم اختيار الرقم: ${offer.number}`);
+            }
+        }
+
+        // تصدير البيانات
+        function exportData() {
+            const exportData = document.getElementById('export-data');
+            exportData.value = JSON.stringify(appData, null, 2);
+            exportData.style.display = 'block';
+            showNotification('تم تحضير بيانات التصدير. انسخها والصقها في الكود على الخادم.');
+        }
+
+        // استيراد البيانات
+        function importData() {
+            const importData = document.getElementById('import-data').value;
+            try {
+                const parsedData = JSON.parse(importData);
+                appData = parsedData;
+                saveData();
+                showNotification('تم استيراد البيانات بنجاح!');
+            } catch (e) {
+                showNotification('خطأ في بيانات الاستيراد. تأكد من صحة البيانات.');
             }
         }
 
