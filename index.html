@@ -3,190 +3,567 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>متجر الأرقام الوهمية</title>
+  <title>متجر الأرقام</title>
   <style>
     :root{
-      --bg:#0f172a;
-      --card:#111827;
-      --muted:#94a3b8;
-      --text:#e5e7eb;
-      --brand:#22c55e;
-      --brand-2:#06b6d4;
-      --danger:#ef4444;
-      --warn:#f59e0b;
-      --ok:#10b981;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 18px;
+      --bg:#0f172a; /* slate-900 */
+      --card:#111827; /* gray-900 */
+      --muted:#334155; /* slate-600 */
+      --text:#e5e7eb; /* gray-200 */
+      --accent:#22c55e; /* green-500 */
+      --danger:#ef4444; /* red-500 */
+      --warn:#f59e0b;  /* amber-500 */
+      --link:#60a5fa;  /* blue-400 */
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;background:var(--bg);color:var(--text);font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    }
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;height:auto;display:block}
-    .container{width:min(1100px, 92%);margin-inline:auto}
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter: blur(10px);background:rgba(15,23,42,.65);border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav .wrap{display:flex;align-items:center;gap:16px;justify-content:space-between;padding:12px 0}
+    body{margin:0;background:linear-gradient(180deg,#0b1025,#0f172a);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
+    a{color:var(--link);text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:16px}
+    header{position:sticky;top:0;background:rgba(15,23,42,.8);backdrop-filter:blur(8px);border-bottom:1px solid #1f2937;z-index:50}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,.15)}
-    .brand .title{font-weight:800;letter-spacing:.3px}
-    .links{display:flex;gap:10px;flex-wrap:wrap}
-    .links a{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);transition:.2s; font-weight:600;color:var(--muted)}
-    .links a.active,.links a:hover{border-color:transparent;background:linear-gradient(135deg, rgba(34,197,94,.2), rgba(6,182,212,.2));color:var(--text)}
-    section{display:none}
-    section.active{display:block}
-    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .btn{padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--text);font-weight:700;cursor:pointer}
-    .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2));border:none}
-    .btn.warn{background:linear-gradient(135deg, var(--warn), #facc15);border:none}
-    .btn.danger{background:linear-gradient(135deg, var(--danger), #fb7185);border:none}
-    .muted{color:var(--muted)}
+    .brand img{width:44px;height:44px;border-radius:12px;object-fit:cover;border:1px solid #1f2937}
+    .brand h1{font-size:18px;margin:0}
+    .nav-links{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid #1f2937;background:#0b1229;color:var(--text);cursor:pointer}
+    .btn:hover{border-color:#334155}
+    .btn.primary{background:var(--accent);color:#06210e;border-color:transparent}
+    .btn.ghost{background:transparent}
+    .btn.warn{background:var(--warn);color:#1f1300;border-color:transparent}
+    .btn.danger{background:var(--danger);color:#2b0a0a;border-color:transparent}
+    .grid{display:grid;gap:16px}
+    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width:900px){.grid.cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:640px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,.3)}
+    .card .p{padding:16px}
+    .muted{color:#94a3b8}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+    .input, select, textarea{background:#0b1229;border:1px solid #1f2937;border-radius:12px;padding:10px 12px;color:var(--text)}
+    .input:focus, select:focus, textarea:focus{outline:2px solid #334155}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{padding:10px;border-bottom:1px solid #1f2937;text-align:right}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid #1f2937}
+    .pill.ok{background:rgba(34,197,94,.15)}
+    .pill.no{background:rgba(239,68,68,.15)}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;margin-top:16px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}}
+    .hero-visual{height:280px;background:radial-gradient(120px 120px at 20% 30%,#1d2a57,transparent 60%),radial-gradient(140px 140px at 80% 70%,#123860,transparent 60%);border-radius:18px;border:1px solid #1f2937}
+    footer{padding:32px 0;color:#94a3b8;border-top:1px solid #1f2937;margin-top:32px}
+    .badge{font-size:12px;background:#0b1229;border:1px solid #1f2937;border-radius:999px;padding:6px 10px;color:#a5b4fc}
+    .hidden{display:none !important}
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="container wrap">
+  <header>
+    <div class="container nav">
       <div class="brand">
-        <img id="logoImg" src="https://i.ibb.co/5kxmQqB/sim.png" alt="الشعار" />
-        <div class="title" id="siteName">متجر الأرقام</div>
+        <img id="siteLogo" src="https://i.postimg.cc/7ZP6hNL9/number-shop.png" alt="logo"/>
+        <h1 id="siteName">متجر الأرقام</h1>
+        <span class="badge" id="liveBadge">حيّ ومباشر</span>
       </div>
-      <div class="links">
-        <a href="#home" data-route class="active">الترحيب</a>
-        <a href="#offers" data-route>العروض</a>
-        <a href="#contact" data-route>الاستفسارات</a>
-        <a href="#admin" data-route>المسؤول</a>
-      </div>
+      <nav class="nav-links">
+        <a class="btn ghost" href="#/welcome">ترحيب</a>
+        <a class="btn ghost" href="#/home">الرئيسية</a>
+        <a class="btn ghost" href="#/faq">استفسارات</a>
+        <a class="btn" id="goAdmin" href="#/admin">المسؤول</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
   <main class="container">
-    <section id="home" class="active">
-      <div class="card" style="padding:20px">
-        <h1 id="welcomeTitle">متجر الأرقام الوهمية</h1>
-        <p id="welcomeMsg">نوفر أرقاماً جاهزة للتفعيل لمختلف التطبيقات.</p>
+    <!-- Welcome Page -->
+    <section id="page-welcome" class="page">
+      <div class="hero">
+        <div class="card p">
+          <h2 id="welcomeTitle" style="margin-top:0">مرحباً بك في <span id="welcomeSiteName">متجر الأرقام</span> 👋</h2>
+          <p class="muted" id="welcomeSub">نوفر لك أرقام تفعيل جاهزة مع تحديثات فورية وعروض خاصة.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+            <a href="#/home" class="btn primary">تصفح العروض</a>
+            <a href="#/faq" class="btn">الاستفسارات</a>
+          </div>
+        </div>
+        <div class="hero-visual"></div>
       </div>
-    </section>
 
-    <section id="offers">
-      <div id="offersGrid"></div>
-    </section>
-
-    <section id="contact">
-      <div class="card" style="padding:20px">
-        <h2>الاستفسارات</h2>
-        <button class="btn primary" id="openWhatsApp">فتح واتساب</button>
-      </div>
-    </section>
-
-    <section id="admin">
-      <div id="adminLocked" class="card" style="padding:18px">
-        <h2>تسجيل الدخول للمسؤول</h2>
-        <div style="margin-top:10px">
-          <input id="adminPassInput" type="password" placeholder="كلمة المرور" />
-          <button class="btn primary" id="adminLogin">دخول</button>
+      <div class="grid cols-3" style="margin-top:18px">
+        <div class="card p">
+          <h3>سرعة التحديث</h3>
+          <p class="muted">أي تغيير من المسؤول يظهر للجميع مباشرة.</p>
+        </div>
+        <div class="card p">
+          <h3>مرونة لجميع الأجهزة</h3>
+          <p class="muted">تصميم متجاوب يعمل على الجوال والكمبيوتر والتابلت.</p>
+        </div>
+        <div class="card p">
+          <h3>طلب عبر واتساب</h3>
+          <p class="muted">زر طلب يرسل تفاصيل الرقم إلى واتساب المسؤول.</p>
         </div>
       </div>
+    </section>
 
-      <div id="adminPanel" style="display:none">
-        <div class="card" style="padding:18px; margin-bottom:16px">
-          <h2>إعدادات الموقع</h2>
-          <div>
-            <label>اسم الموقع</label>
-            <input id="setName" />
-            <label>الشعار</label>
-            <input type="file" id="setLogoFile" accept="image/*" />
-            <label>رقم واتساب</label>
-            <input id="setWA" />
-            <label>عنوان الترحيب</label>
-            <input id="setWelcomeTitle" />
-            <label>نص الترحيب</label>
-            <textarea id="setWelcomeMsg"></textarea>
+    <!-- Home / Offers Page -->
+    <section id="page-home" class="page hidden">
+      <div class="card p" style="margin-top:16px">
+        <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+          <div style="display:flex;gap:10px;align-items:center">
+            <h2 style="margin:0">العروض المتاحة</h2>
+            <span class="pill" id="countBadge">0 المتاح</span>
           </div>
-          <button class="btn primary" id="saveSettings">حفظ</button>
+          <input id="search" class="input" placeholder="ابحث برقم الدولة أو الرقم…" />
+        </div>
+        <div id="offers" class="grid cols-3" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <!-- FAQ / Inquiries Page -->
+    <section id="page-faq" class="page hidden">
+      <div class="card p" style="margin-top:16px">
+        <h2 style="margin-top:0">الأسئلة الشائعة</h2>
+        <details open>
+          <summary>كيف أطلب رقماً؟</summary>
+          <p class="muted">اختر الرقم ثم اضغط "طلب عبر واتساب" لإرسال تفاصيل الطلب مباشرة للمسؤول.</p>
+        </details>
+        <details>
+          <summary>كيف أستلم كود التفعيل؟</summary>
+          <p class="muted">بعد الدفع، يرسل لك المسؤول الكود عبر واتساب. حالة طلبك تتحدث داخل الموقع.</p>
+        </details>
+        <details>
+          <summary>هل التحديثات فورية؟</summary>
+          <p class="muted">نعم، أي تعديل من صفحة المسؤول يظهر فوراً لكل الزوار.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Admin Page -->
+    <section id="page-admin" class="page hidden">
+      <div class="card p" style="margin-top:16px">
+        <h2 style="margin-top:0">لوحة تحكم المسؤول</h2>
+
+        <div id="adminLogin">
+          <div class="grid cols-2">
+            <div>
+              <div class="field">
+                <label>كلمة مرور المسؤول</label>
+                <input id="adminPass" class="input" type="password" placeholder="********" />
+              </div>
+              <button class="btn primary" id="loginBtn">دخول</button>
+              <p class="muted" style="margin-top:8px">تلميح: يمكنك تغيير كلمة المرور من قسم الإعدادات بعد الدخول.</p>
+            </div>
+            <div class="card p">
+              <h3 style="margin-top:0">ملاحظات الأمان</h3>
+              <ul class="muted">
+                <li>هذه الحماية أساسية (عميل فقط). للأمان الكامل استخدم خادماً أو قواعد أمان Firestore قوية.</li>
+                <li>لا تشارك كلمة المرور.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div id="adminPanel" class="hidden">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <button class="btn" data-tab="tab-settings">الإعدادات العامة</button>
+            <button class="btn" data-tab="tab-numbers">إدارة الأرقام</button>
+            <button class="btn" data-tab="tab-orders">طلبات العملاء</button>
+            <button class="btn warn" id="logoutBtn">خروج</button>
+          </div>
+
+          <!-- Settings -->
+          <div id="tab-settings" class="card p">
+            <h3 style="margin-top:0">الإعدادات العامة</h3>
+            <div class="grid cols-2">
+              <div>
+                <div class="field">
+                  <label>اسم الموقع</label>
+                  <input id="setName" class="input" />
+                </div>
+                <div class="field">
+                  <label>رابط الشعار</label>
+                  <input id="setLogo" class="input" />
+                </div>
+                <div class="field">
+                  <label>رقم واتساب المسؤول (مع رمز الدولة)</label>
+                  <input id="setWhatsapp" class="input" placeholder="مثال: 9677XXXXXXX" />
+                </div>
+                <div class="field">
+                  <label>كلمة مرور جديدة للمسؤول</label>
+                  <input id="setNewPass" class="input" type="password" />
+                </div>
+                <button class="btn primary" id="saveSettings">حفظ الإعدادات</button>
+              </div>
+              <div>
+                <p class="muted">تظهر هذه الإعدادات أمام الجميع مباشرة بعد الحفظ.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Numbers -->
+          <div id="tab-numbers" class="card p hidden">
+            <h3 style="margin-top:0">إدارة الأرقام</h3>
+            <div class="grid cols-2">
+              <div class="card p">
+                <h4 style="margin-top:0">إضافة / تعديل</h4>
+                <div class="field"><label>المعرف (اختياري للتعديل)</label><input id="numId" class="input" placeholder="اتركه فارغاً للإضافة"/></div>
+                <div class="field"><label>الدولة</label><input id="numCountry" class="input" placeholder="اليمن، السعودية…"/></div>
+                <div class="field"><label>الرقم</label><input id="numNumber" class="input" placeholder="7xxxxxxxx"/></div>
+                <div class="field"><label>السعر</label><input id="numPrice" class="input" type="number" min="0" step="0.01"/></div>
+                <div class="field"><label>متاح؟</label>
+                  <select id="numAvailable">
+                    <option value="true">نعم</option>
+                    <option value="false">لا</option>
+                  </select>
+                </div>
+                <button class="btn primary" id="saveNumber">حفظ الرقم</button>
+                <button class="btn danger" id="deleteNumber">حذف بالمعرف</button>
+              </div>
+
+              <div>
+                <table class="table" id="numbersTable">
+                  <thead>
+                    <tr><th>المعرف</th><th>الدولة</th><th>الرقم</th><th>السعر</th><th>الحالة</th></tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders -->
+          <div id="tab-orders" class="card p hidden">
+            <h3 style="margin-top:0">طلبات العملاء</h3>
+            <table class="table" id="ordersTable">
+              <thead>
+                <tr><th>المعرف</th><th>الرقم</th><th>السعر</th><th>العميل</th><th>واتساب</th><th>الحالة</th><th>إجراءات</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-<script>
-  let settings = {
-    name: 'متجر الأرقام',
-    logo: 'https://i.ibb.co/5kxmQqB/sim.png',
-    wa: '201000000000',
-    welcomeTitle: 'متجر الأرقام الوهمية',
-    welcomeMsg: 'نوفر أرقاماً جاهزة للتفعيل لمختلف التطبيقات.'
-  };
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+      <span id="footerText">© <span id="yearNow"></span> متجر الأرقام – جميع الحقوق محفوظة</span>
+      <span class="muted">نسخة أمامية فقط – تحتاج إلى Firebase للعمل الحي</span>
+    </div>
+  </footer>
 
-  const els = {
-    logoImg: document.getElementById('logoImg'),
-    siteName: document.getElementById('siteName'),
-    welcomeTitle: document.getElementById('welcomeTitle'),
-    welcomeMsg: document.getElementById('welcomeMsg'),
-    offersGrid: document.getElementById('offersGrid'),
-    openWhatsApp: document.getElementById('openWhatsApp')
-  };
+  <!-- Firebase v9 (modular) -->
+  <script type="module">
+    // ====== 1) ضع مفاتيح Firebase الخاصة بك هنا ======
+    // أنشئ مشروعاً من console.firebase.google.com ثم فعّل Firestore أو Realtime Database.
+    // هذا المثال يستخدم Firestore.
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot, collection, addDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-  function applySettings(){
-    els.logoImg.src = settings.logo;
-    els.siteName.textContent = settings.name;
-    els.welcomeTitle.textContent = settings.welcomeTitle;
-    els.welcomeMsg.textContent = settings.welcomeMsg;
-  }
+    const firebaseConfig = {
+      apiKey: "PASTE_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-  function waLinkFor(item){
-    const msg = `مرحباً، أريد هذا الرقم: ${item.value} (${item.country}) - ${item.app} - السعر: ${item.price}`;
-    return `https://wa.me/${settings.wa}?text=${encodeURIComponent(msg)}`;
-  }
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-  function renderOffers(){
-    const numbers = [
-      {country:'السعودية', code:'+966', app:'واتساب', value:'5X9-***-***', price: 8},
-      {country:'مصر', code:'+20', app:'تليجرام', value:'7T2-***-***', price: 5}
-    ];
-    els.offersGrid.innerHTML = numbers.map(item=>`
-      <div class="card" style="padding:20px;margin:10px 0">
-        <div>${item.country} (${item.code}) - ${item.app}</div>
-        <div>${item.value}</div>
-        <div>$${item.price}</div>
-        <a class="btn primary" href="${waLinkFor(item)}" target="_blank">طلب عبر واتساب</a>
-      </div>
-    `).join('');
-  }
+    // ====== 2) عناصر DOM ======
+    const pages = {
+      welcome: document.getElementById('page-welcome'),
+      home: document.getElementById('page-home'),
+      faq: document.getElementById('page-faq'),
+      admin: document.getElementById('page-admin')
+    };
 
-  document.getElementById('adminLogin').addEventListener('click', ()=>{
-    const val = document.getElementById('adminPassInput').value;
-    if(val === 'admin123'){
-      document.getElementById('adminLocked').style.display='none';
-      document.getElementById('adminPanel').style.display='block';
-      document.getElementById('setName').value=settings.name;
-      document.getElementById('setWA').value=settings.wa;
-      document.getElementById('setWelcomeTitle').value=settings.welcomeTitle;
-      document.getElementById('setWelcomeMsg').value=settings.welcomeMsg;
-    }else alert('كلمة مرور خاطئة');
-  });
+    const siteNameEl = document.getElementById('siteName');
+    const siteLogoEl = document.getElementById('siteLogo');
+    const welcomeSiteNameEl = document.getElementById('welcomeSiteName');
+    const welcomeTitleEl = document.getElementById('welcomeTitle');
+    const welcomeSubEl = document.getElementById('welcomeSub');
+    const offersWrap = document.getElementById('offers');
+    const countBadge = document.getElementById('countBadge');
+    const searchInput = document.getElementById('search');
 
-  document.getElementById('saveSettings').addEventListener('click', ()=>{
-    settings.name=document.getElementById('setName').value||settings.name;
-    settings.wa=document.getElementById('setWA').value||settings.wa;
-    settings.welcomeTitle=document.getElementById('setWelcomeTitle').value||settings.welcomeTitle;
-    settings.welcomeMsg=document.getElementById('setWelcomeMsg').value||settings.welcomeMsg;
-    const file=document.getElementById('setLogoFile').files[0];
-    if(file){
-      const reader=new FileReader();
-      reader.onload=(e)=>{settings.logo=e.target.result;applySettings();};
-      reader.readAsDataURL(file);
-    }else{
-      applySettings();
+    const adminLogin = document.getElementById('adminLogin');
+    const adminPanel = document.getElementById('adminPanel');
+    const adminPass = document.getElementById('adminPass');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    const setName = document.getElementById('setName');
+    const setLogo = document.getElementById('setLogo');
+    const setWhatsapp = document.getElementById('setWhatsapp');
+    const setNewPass = document.getElementById('setNewPass');
+    const saveSettings = document.getElementById('saveSettings');
+
+    const numId = document.getElementById('numId');
+    const numCountry = document.getElementById('numCountry');
+    const numNumber = document.getElementById('numNumber');
+    const numPrice = document.getElementById('numPrice');
+    const numAvailable = document.getElementById('numAvailable');
+    const saveNumber = document.getElementById('saveNumber');
+    const deleteNumberBtn = document.getElementById('deleteNumber');
+    const numbersTable = document.querySelector('#numbersTable tbody');
+
+    const ordersTable = document.querySelector('#ordersTable tbody');
+
+    const footerYear = document.getElementById('yearNow');
+    footerYear.textContent = new Date().getFullYear();
+
+    // ====== 3) بيانات Firestore ======
+    const settingsRef = doc(db, 'meta', 'settings');
+    const numbersCol = collection(db, 'numbers');
+    const ordersCol = collection(db, 'orders');
+
+    // أول تشغيل: تأكد من وجود إعدادات افتراضية
+    async function ensureDefaults(){
+      const snap = await getDoc(settingsRef);
+      if(!snap.exists()){
+        await setDoc(settingsRef, {
+          siteName: 'متجر الأرقام',
+          logoUrl: 'https://i.postimg.cc/7ZP6hNL9/number-shop.png',
+          welcomeTitle: 'مرحباً بك في متجر الأرقام 👋',
+          welcomeSub: 'نوفر لك أرقام تفعيل جاهزة مع تحديثات فورية وعروض خاصة.',
+          whatsappAdmin: '9677XXXXXXXX',
+          adminPassword: 'admin123', // للتجربة – غيّرها فوراً
+          footerText: '© جميع الحقوق محفوظة',
+          updatedAt: Date.now()
+        });
+      }
     }
-  });
 
-  els.openWhatsApp.addEventListener('click', ()=>{
-    window.open(`https://wa.me/${settings.wa}`,'_blank');
-  });
+    // بث مباشر للإعدادات ليتغير كل شيء للجميع
+    onSnapshot(settingsRef, (docSnap)=>{
+      if(docSnap.exists()){
+        const s = docSnap.data();
+        siteNameEl.textContent = s.siteName || 'متجر الأرقام';
+        welcomeSiteNameEl.textContent = s.siteName || 'متجر الأرقام';
+        if(s.welcomeTitle) welcomeTitleEl.firstChild && (welcomeTitleEl.firstChild.textContent = s.welcomeTitle + ' ');
+        if(s.welcomeSub) welcomeSubEl.textContent = s.welcomeSub;
+        if(s.logoUrl) siteLogoEl.src = s.logoUrl;
+        document.getElementById('footerText').innerHTML = s.footerText || '';
 
-  applySettings();
-  renderOffers();
-</script>
+        // عبّي حقول الإعدادات عند فتح لوحة التحكم
+        setName.value = s.siteName || '';
+        setLogo.value = s.logoUrl || '';
+        setWhatsapp.value = s.whatsappAdmin || '';
+      }
+    });
+
+    // بث مباشر للأرقام
+    const qNumbers = query(numbersCol, orderBy('country','asc'));
+    onSnapshot(qNumbers, (qs)=>{
+      const list = [];
+      numbersTable.innerHTML = '';
+      offersWrap.innerHTML = '';
+      qs.forEach(d=>{
+        const v = d.data();
+        list.push({id:d.id, ...v});
+        // جدول الإدارة
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${d.id}</td><td>${v.country||''}</td><td>${v.number||''}</td><td>${(v.price||0)}$</td><td>${v.available?'<span class="pill ok">متاح</span>':'<span class="pill no">غير متاح</span>'}</td>`;
+        tr.onclick = ()=>{
+          numId.value = d.id;
+          numCountry.value = v.country||'';
+          numNumber.value = v.number||'';
+          numPrice.value = v.price||0;
+          numAvailable.value = v.available? 'true':'false';
+          window.location.hash = '#/admin';
+          switchTab('tab-numbers');
+        };
+        numbersTable.appendChild(tr);
+
+        // بطاقات المتجر (للزوار)
+        if(v.available){
+          const card = document.createElement('div');
+          card.className = 'card p';
+          card.innerHTML = `
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
+              <div>
+                <div class="muted">${v.country||'—'}</div>
+                <div style="font-size:20px;font-weight:600">${v.number||''}</div>
+              </div>
+              <div style="text-align:left">
+                <div class="pill ok">متاح</div>
+                <div style="margin-top:8px;font-weight:700">${(v.price||0)}$</div>
+              </div>
+            </div>
+            <div class="field" style="margin-top:10px">
+              <label>اسمك (اختياري)</label>
+              <input class="input buyerName" placeholder="أكتب اسمك"/>
+            </div>
+            <button class="btn primary orderBtn">طلب عبر واتساب</button>
+          `;
+          const orderBtn = card.querySelector('.orderBtn');
+          orderBtn.addEventListener('click', ()=> placeOrder({id:d.id, ...v}, card));
+          offersWrap.appendChild(card);
+        }
+      });
+      countBadge.textContent = `${list.filter(x=>x.available).length} المتاح`;
+    });
+
+    // بث مباشر للطلبات (إدارة)
+    onSnapshot(ordersCol, (qs)=>{
+      ordersTable.innerHTML = '';
+      qs.forEach(d=>{
+        const v = d.data();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${d.id}</td>
+          <td>${v.number||''}</td>
+          <td>${v.price||0}$</td>
+          <td>${v.buyerName||'-'}</td>
+          <td>${v.buyerWhatsApp? ('+'+v.buyerWhatsApp):'-'}</td>
+          <td><span class="pill ${v.status==='done'?'ok': v.status==='pending'?'':'no'}">${v.status||'new'}</span></td>
+          <td>
+            <button class="btn warn" data-done="${d.id}">تم التسليم</button>
+            <button class="btn danger" data-cancel="${d.id}">إلغاء</button>
+          </td>`;
+        ordersTable.appendChild(tr);
+      });
+    });
+
+    // حدث أزرار حالة الطلب
+    ordersTable.addEventListener('click', async (e)=>{
+      const done = e.target.getAttribute('data-done');
+      const cancel = e.target.getAttribute('data-cancel');
+      if(done){ await updateDoc(doc(db,'orders',done), {status:'done'}); }
+      if(cancel){ await updateDoc(doc(db,'orders',cancel), {status:'canceled'}); }
+    });
+
+    // حفظ الإعدادات
+    saveSettings.addEventListener('click', async ()=>{
+      const payload = {
+        siteName: setName.value.trim() || 'متجر الأرقام',
+        logoUrl: setLogo.value.trim(),
+        whatsappAdmin: setWhatsapp.value.trim(),
+        updatedAt: Date.now()
+      };
+      if(setNewPass.value.trim()) payload.adminPassword = setNewPass.value.trim();
+      await updateDoc(settingsRef, payload);
+      setNewPass.value = '';
+      alert('تم حفظ الإعدادات ✅');
+    });
+
+    // إضافة/تعديل رقم
+    saveNumber.addEventListener('click', async ()=>{
+      const val = {
+        country: (numCountry.value||'').trim(),
+        number: (numNumber.value||'').trim(),
+        price: Number(numPrice.value||0),
+        available: numAvailable.value === 'true'
+      };
+      if(numId.value.trim()){
+        await updateDoc(doc(db,'numbers',numId.value.trim()), val);
+        alert('تم التحديث ✅');
+      } else {
+        const ref = await addDoc(numbersCol, val);
+        numId.value = ref.id;
+        alert('تمت الإضافة ✅');
+      }
+    });
+
+    // حذف رقم
+    deleteNumberBtn.addEventListener('click', async ()=>{
+      const id = numId.value.trim();
+      if(!id) return alert('أدخل المعرف أولاً');
+      await deleteDoc(doc(db,'numbers',id));
+      alert('تم الحذف 🗑️');
+      numId.value = numCountry.value = numNumber.value = numPrice.value = '';
+      numAvailable.value = 'true';
+    });
+
+    // فلترة البحث
+    searchInput?.addEventListener('input', ()=>{
+      const q = searchInput.value.trim().toLowerCase();
+      [...offersWrap.children].forEach(card=>{
+        const txt = card.textContent.toLowerCase();
+        card.style.display = txt.includes(q)? 'block':'none';
+      });
+    });
+
+    // وضع الطلب: كتابة إلى Firestore + فتح واتساب
+    async function placeOrder(item, card){
+      const sSnap = await getDoc(settingsRef);
+      const s = sSnap.data()||{};
+      const adminWa = (s.whatsappAdmin||'').replace(/\D/g,'');
+      if(!adminWa){
+        alert('رقم واتساب المسؤول غير مضبوط بعد.');
+        return;
+      }
+      const buyerName = card.querySelector('.buyerName')?.value.trim() || '';
+      const payload = {
+        numberId: item.id,
+        number: item.number,
+        price: item.price,
+        buyerName,
+        buyerWhatsApp: '',
+        status: 'pending',
+        createdAt: Date.now()
+      };
+      const ref = await addDoc(ordersCol, payload);
+      const text = encodeURIComponent(`طلب جديد #${ref.id}\nرقم: ${item.number} (${item.country})\nالسعر: ${item.price}$\nالاسم: ${buyerName||'-'}\nرابط الطلب: ${location.origin + location.pathname + '#/admin'}`);
+      const waUrl = `https://wa.me/${adminWa}?text=${text}`;
+      window.open(waUrl,'_blank');
+    }
+
+    // ====== 4) تسجيل دخول بسيط للمسؤول (عميل فقط) ======
+    let isAdmin = false;
+    loginBtn.addEventListener('click', async ()=>{
+      const sSnap = await getDoc(settingsRef);
+      const s = sSnap.data()||{};
+      const ok = (adminPass.value.trim() === (s.adminPassword||''));
+      if(ok){
+        isAdmin = true;
+        localStorage.setItem('isAdmin','1');
+        adminLogin.classList.add('hidden');
+        adminPanel.classList.remove('hidden');
+      } else {
+        alert('كلمة المرور غير صحيحة');
+      }
+    });
+    logoutBtn.addEventListener('click', ()=>{
+      isAdmin = false; localStorage.removeItem('isAdmin');
+      adminPanel.classList.add('hidden');
+      adminLogin.classList.remove('hidden');
+    });
+
+    // استعادة جلسة
+    if(localStorage.getItem('isAdmin')==='1'){
+      adminLogin.classList.add('hidden');
+      adminPanel.classList.remove('hidden');
+    }
+
+    // تبديل التبويبات داخل لوحة التحكم
+    function switchTab(id){
+      ['tab-settings','tab-numbers','tab-orders'].forEach(t=>{
+        document.getElementById(t).classList.toggle('hidden', t!==id);
+      })
+    }
+    document.querySelectorAll('#adminPanel [data-tab]').forEach(btn=>{
+      btn.addEventListener('click', ()=> switchTab(btn.getAttribute('data-tab')));
+    });
+
+    // ====== 5) توجيه الصفحات (SPA عبر hash) ======
+    function route(){
+      const hash = location.hash || '#/welcome';
+      Object.values(pages).forEach(p=>p.classList.add('hidden'));
+      if(hash.startsWith('#/welcome')) pages.welcome.classList.remove('hidden');
+      else if(hash.startsWith('#/home')) pages.home.classList.remove('hidden');
+      else if(hash.startsWith('#/faq')) pages.faq.classList.remove('hidden');
+      else if(hash.startsWith('#/admin')) pages.admin.classList.remove('hidden');
+      else pages.welcome.classList.remove('hidden');
+    }
+    window.addEventListener('hashchange', route);
+
+    // ====== 6) تشغيل أولي ======
+    ensureDefaults().then(()=>{
+      route();
+    });
+  </script>
 </body>
 </html>
