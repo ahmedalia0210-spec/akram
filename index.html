@@ -6,30 +6,26 @@
   <title>متجر الأرقام الوهمية</title>
   <style>
     :root{
-      --bg:#0f172a;          /* slate-900 */
-      --card:#111827;        /* gray-900 */
-      --muted:#94a3b8;       /* slate-400 */
-      --text:#e5e7eb;        /* gray-200 */
-      --brand:#22c55e;       /* green-500 */
-      --brand-2:#06b6d4;     /* cyan-500 */
-      --danger:#ef4444;      /* red-500 */
-      --warn:#f59e0b;        /* amber-500 */
-      --ok:#10b981;          /* emerald-500 */
+      --bg:#0f172a;
+      --card:#111827;
+      --muted:#94a3b8;
+      --text:#e5e7eb;
+      --brand:#22c55e;
+      --brand-2:#06b6d4;
+      --danger:#ef4444;
+      --warn:#f59e0b;
+      --ok:#10b981;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
       --radius: 18px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;background:radial-gradient(1200px 600px at 100% -100px, rgba(34,197,94,.09), transparent 60%),
-      radial-gradient(1000px 500px at -100px 120%, rgba(6,182,212,.09), transparent 60%), var(--bg);
-      color:var(--text); font-family: "Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      margin:0;background:var(--bg);color:var(--text);font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial;
     }
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block}
     .container{width:min(1100px, 92%);margin-inline:auto}
-
-    /* Navbar */
     .nav{position:sticky;top:0;z-index:50;backdrop-filter: blur(10px);background:rgba(15,23,42,.65);border-bottom:1px solid rgba(255,255,255,.06)}
     .nav .wrap{display:flex;align-items:center;gap:16px;justify-content:space-between;padding:12px 0}
     .brand{display:flex;align-items:center;gap:12px}
@@ -38,62 +34,17 @@
     .links{display:flex;gap:10px;flex-wrap:wrap}
     .links a{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);transition:.2s; font-weight:600;color:var(--muted)}
     .links a.active,.links a:hover{border-color:transparent;background:linear-gradient(135deg, rgba(34,197,94,.2), rgba(6,182,212,.2));color:var(--text)}
-
-    /* Hero (Welcome page) */
-    .hero{display:grid;grid-template-columns: 1.2fr .8fr;gap:24px;align-items:center;padding:48px 0}
-    .hero .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
-    .kicker{color:var(--muted);font-weight:700;letter-spacing:.8px}
-    h1{font-size:clamp(28px, 3.4vw, 44px);margin:8px 0 12px}
-    .lead{color:#cbd5e1;line-height:1.8}
-    .hero .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
-    .stat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);padding:16px;border-radius:14px;text-align:center}
-    .stat .n{font-size:22px;font-weight:800}
-    .cta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+    section{display:none}
+    section.active{display:block}
+    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow)}
     .btn{padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--text);font-weight:700;cursor:pointer}
     .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2));border:none}
     .btn.warn{background:linear-gradient(135deg, var(--warn), #facc15);border:none}
     .btn.danger{background:linear-gradient(135deg, var(--danger), #fb7185);border:none}
     .muted{color:var(--muted)}
-
-    /* Offers */
-    .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:24px 0}
-    .search{flex:1;min-width:200px}
-    input, select, textarea{width:100%;padding:12px 14px;border-radius:12px;background:#0b1220;border:1px solid rgba(255,255,255,.12);color:var(--text)}
-    .grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px}
-    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .card .content{padding:16px}
-    .price{font-weight:900;font-size:18px}
-    .badge{display:inline-block;padding:.25rem .6rem;border-radius:999px;border:1px dashed rgba(255,255,255,.25);font-size:12px;color:#d1fae5}
-
-    /* Admin */
-    .admin-wrap{display:grid;grid-template-columns: 1fr;gap:16px}
-    .table{width:100%;border-collapse:separate;border-spacing:0 10px}
-    .table th{color:var(--muted);text-align:right;font-weight:700}
-    .table td, .table th{padding:10px 12px;background:rgba(255,255,255,.03)}
-    .row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-
-    /* Sections visibility */
-    section{display:none}
-    section.active{display:block}
-
-    /* Footer */
-    footer{margin:40px 0 60px;color:var(--muted);text-align:center}
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .grid{grid-template-columns:repeat(2, 1fr)}
-      .hero{grid-template-columns:1fr}
-    }
-    @media (max-width: 640px){
-      .grid{grid-template-columns:1fr}
-      .links{gap:6px}
-      .links a{padding:8px 12px}
-      .hero .stats{grid-template-columns:repeat(2,1fr)}
-    }
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
   <nav class="nav">
     <div class="container wrap">
       <div class="brand">
@@ -104,417 +55,138 @@
         <a href="#home" data-route class="active">الترحيب</a>
         <a href="#offers" data-route>العروض</a>
         <a href="#contact" data-route>الاستفسارات</a>
-        <a href="#admin" data-route title="صفحة المسؤول">المسؤول</a>
+        <a href="#admin" data-route>المسؤول</a>
       </div>
     </div>
   </nav>
 
   <main class="container">
-    <!-- HOME / WELCOME -->
     <section id="home" class="active">
-      <div class="hero">
-        <div class="card">
-          <div class="kicker">مرحباً بك في</div>
-          <h1 id="welcomeTitle">متجر الأرقام الوهمية — سريع وآمن</h1>
-          <p class="lead" id="welcomeMsg">نوفر أرقاماً جاهزة للتفعيل لمختلف التطبيقات. إختر رقمك الآن، وعند الضغط على "طلب" يتم فتح واتساب برسالة جاهزة تصل للمسؤول مباشرة.</p>
-          <div class="stats">
-            <div class="stat"><div class="n" id="statAvailable">0</div><div class="muted">أرقام متاحة</div></div>
-            <div class="stat"><div class="n" id="statCountries">0</div><div class="muted">دول مدعومة</div></div>
-            <div class="stat"><div class="n" id="statSold">0</div><div class="muted">طلبات مُنجزة</div></div>
-          </div>
-          <div class="cta">
-            <a class="btn primary" href="#offers" data-route>تصفح العروض</a>
-            <a class="btn" href="#contact" data-route>فتح الاستفسارات</a>
-          </div>
-        </div>
-        <div class="card">
-          <img id="welcomeImage" src="https://i.ibb.co/6W2g7k8/phone-cards.png" alt="بطاقات وأرقام"/>
-        </div>
+      <div class="card" style="padding:20px">
+        <h1 id="welcomeTitle">متجر الأرقام الوهمية</h1>
+        <p id="welcomeMsg">نوفر أرقاماً جاهزة للتفعيل لمختلف التطبيقات.</p>
       </div>
     </section>
 
-    <!-- OFFERS -->
     <section id="offers">
-      <div class="toolbar">
-        <div class="search"><input id="q" placeholder="ابحث برقم الدولة أو السعر أو التطبيق…"/></div>
-        <div style="display:flex; gap:10px">
-          <select id="countryFilter"></select>
-          <select id="sort">
-            <option value="price-asc">السعر: من الأرخص للأغلى</option>
-            <option value="price-desc">السعر: من الأغلى للأرخص</option>
-          </select>
-        </div>
-      </div>
-      <div id="offersGrid" class="grid"></div>
+      <div id="offersGrid"></div>
     </section>
 
-    <!-- CONTACT / INQUIRIES -->
     <section id="contact">
-      <div class="card" style="padding:18px">
-        <h2 style="margin:10px 0">الاستفسارات</h2>
-        <p class="muted">للاستفسار السريع اضغط الزر أدناه لفتح محادثة واتساب مع المسؤول.</p>
-        <div class="cta">
-          <button class="btn primary" id="openWhatsApp">فتح واتساب</button>
-          <button class="btn" id="copyNumber">نسخ رقم واتساب</button>
-        </div>
+      <div class="card" style="padding:20px">
+        <h2>الاستفسارات</h2>
+        <button class="btn primary" id="openWhatsApp">فتح واتساب</button>
       </div>
     </section>
 
-    <!-- ADMIN -->
     <section id="admin">
       <div id="adminLocked" class="card" style="padding:18px">
         <h2>تسجيل الدخول للمسؤول</h2>
-        <p class="muted">هذه الصفحة خاصة بالمسؤول فقط.</p>
-        <div class="row" style="grid-template-columns:2fr 1fr; margin-top:8px">
+        <div style="margin-top:10px">
           <input id="adminPassInput" type="password" placeholder="كلمة المرور" />
           <button class="btn primary" id="adminLogin">دخول</button>
         </div>
-        <p class="muted" style="margin-top:8px">كلمة المرور الافتراضية: <code>admin123</code> — ننصح بتغييرها بعد الدخول.</p>
       </div>
 
       <div id="adminPanel" style="display:none">
         <div class="card" style="padding:18px; margin-bottom:16px">
           <h2>إعدادات الموقع</h2>
-          <div class="row" style="margin-top:10px">
-            <div>
-              <label class="muted">اسم الموقع</label>
-              <input id="setName" />
-            </div>
-            <div>
-              <label class="muted">رابط الشعار</label>
-              <input id="setLogo" />
-            </div>
-            <div>
-              <label class="muted">رقم واتساب (مع رمز الدولة بدون +)</label>
-              <input id="setWA" placeholder="2010xxxxxxx" />
-            </div>
-            <div>
-              <label class="muted">عنوان الترحيب</label>
-              <input id="setWelcomeTitle" />
-            </div>
-            <div style="grid-column:1/-1">
-              <label class="muted">نص الترحيب</label>
-              <textarea id="setWelcomeMsg" rows="3"></textarea>
-            </div>
+          <div>
+            <label>اسم الموقع</label>
+            <input id="setName" />
+            <label>الشعار</label>
+            <input type="file" id="setLogoFile" accept="image/*" />
+            <label>رقم واتساب</label>
+            <input id="setWA" />
+            <label>عنوان الترحيب</label>
+            <input id="setWelcomeTitle" />
+            <label>نص الترحيب</label>
+            <textarea id="setWelcomeMsg"></textarea>
           </div>
-          <div class="cta" style="margin-top:10px">
-            <button class="btn primary" id="saveSettings">حفظ الإعدادات</button>
-            <button class="btn" id="changePass">تغيير كلمة المرور</button>
-            <button class="btn warn" id="exportData">نسخ احتياطي (تصدير)</button>
-            <label class="btn" style="cursor:pointer">
-              استيراد بيانات<input id="importData" type="file" accept="application/json" style="display:none" />
-            </label>
-          </div>
-        </div>
-
-        <div class="card" style="padding:18px">
-          <h2>إدارة الأرقام</h2>
-          <div class="row" style="margin:12px 0">
-            <input id="numCountry" placeholder="الدولة (مثال: السعودية)" />
-            <input id="numCode" placeholder="رمز الدولة (مثال: SA / +966)" />
-            <input id="numValue" placeholder="الرقم" />
-            <input id="numApp" placeholder="التطبيق (مثال: واتساب، تليجرام)" />
-            <input id="numPrice" type="number" placeholder="السعر" />
-            <button class="btn primary" id="addNumber">إضافة</button>
-          </div>
-          <table class="table" id="numbersTable"></table>
+          <button class="btn primary" id="saveSettings">حفظ</button>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    © <span id="year"></span> <span id="footerName">متجر الأرقام</span>. جميع الحقوق محفوظة.
-  </footer>
-
 <script>
-  // =============== Storage Helpers ===============
-  const LS_KEYS = {
-    settings: 'vn_store_settings',
-    numbers:  'vn_store_numbers',
-    pass:     'vn_admin_password',
-    sold:     'vn_orders_sold'
+  let settings = {
+    name: 'متجر الأرقام',
+    logo: 'https://i.ibb.co/5kxmQqB/sim.png',
+    wa: '201000000000',
+    welcomeTitle: 'متجر الأرقام الوهمية',
+    welcomeMsg: 'نوفر أرقاماً جاهزة للتفعيل لمختلف التطبيقات.'
   };
 
-  const defaults = {
-    settings: {
-      name: 'متجر الأرقام',
-      logo: 'https://i.ibb.co/5kxmQqB/sim.png',
-      wa:   '201000000000', // ضع رقمك الحقيقي هنا من لوحة المسؤول
-      welcomeTitle: 'متجر الأرقام الوهمية — سريع وآمن',
-      welcomeMsg: 'نوفر أرقاماً جاهزة للتفعيل لمختلف التطبيقات. إختر رقمك الآن، وعند الضغط على "طلب" يتم فتح واتساب برسالة جاهزة تصل للمسؤول مباشرة.'
-    },
-    pass: 'admin123',
-    numbers: [
-      {id: crypto.randomUUID(), country:'السعودية', code:'+966', app:'واتساب', value:'5X9-***-***', price: 8, available:true},
-      {id: crypto.randomUUID(), country:'مصر',     code:'+20',  app:'تليجرام', value:'7T2-***-***', price: 5, available:true},
-      {id: crypto.randomUUID(), country:'تركيا',   code:'+90',  app:'واتساب', value:'3A4-***-***', price: 6, available:false}
-    ]
-  };
-
-  function load(key, fallback){
-    try{ return JSON.parse(localStorage.getItem(key)) ?? fallback }catch{ return fallback }
-  }
-  function save(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
-
-  let settings = load(LS_KEYS.settings, defaults.settings);
-  let numbers  = load(LS_KEYS.numbers,  defaults.numbers);
-  let adminPass= load(LS_KEYS.pass,     defaults.pass);
-  let sold     = load(LS_KEYS.sold,     0);
-
-  // =============== Routing ===============
-  const routes = ['home','offers','contact','admin'];
-  const links = document.querySelectorAll('[data-route]');
-  function setRoute(){
-    const hash = location.hash.replace('#','') || 'home';
-    routes.forEach(r => {
-      const sec = document.getElementById(r);
-      if(sec) sec.classList.toggle('active', r===hash);
-    });
-    links.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === `#${hash}`));
-  }
-  window.addEventListener('hashchange', setRoute);
-
-  // =============== Render Basics ===============
   const els = {
     logoImg: document.getElementById('logoImg'),
     siteName: document.getElementById('siteName'),
     welcomeTitle: document.getElementById('welcomeTitle'),
     welcomeMsg: document.getElementById('welcomeMsg'),
-    footerName: document.getElementById('footerName'),
     offersGrid: document.getElementById('offersGrid'),
-    countryFilter: document.getElementById('countryFilter'),
-    sort: document.getElementById('sort'),
-    q: document.getElementById('q'),
-    statAvailable: document.getElementById('statAvailable'),
-    statCountries: document.getElementById('statCountries'),
-    statSold: document.getElementById('statSold'),
-    openWhatsApp: document.getElementById('openWhatsApp'),
-    copyNumber: document.getElementById('copyNumber'),
-    year: document.getElementById('year'),
-    welcomeImage: document.getElementById('welcomeImage')
+    openWhatsApp: document.getElementById('openWhatsApp')
   };
 
   function applySettings(){
-    els.logoImg.src = settings.logo || defaults.settings.logo;
+    els.logoImg.src = settings.logo;
     els.siteName.textContent = settings.name;
     els.welcomeTitle.textContent = settings.welcomeTitle;
     els.welcomeMsg.textContent = settings.welcomeMsg;
-    els.footerName.textContent = settings.name;
-    els.year.textContent = new Date().getFullYear();
-  }
-
-  function stats(){
-    const available = numbers.filter(n=>n.available).length;
-    const countries = new Set(numbers.map(n=>n.country)).size;
-    els.statAvailable.textContent = available;
-    els.statCountries.textContent = countries;
-    els.statSold.textContent = sold;
-  }
-
-  function renderFilters(){
-    const uniqueCountries = ['الكل', ...Array.from(new Set(numbers.map(n=>n.country)))];
-    els.countryFilter.innerHTML = uniqueCountries.map(c=>`<option value="${c}">${c}</option>`).join('');
-  }
-
-  function filteredSorted(){
-    const q = (els.q.value||'').toLowerCase().trim();
-    const cf = els.countryFilter.value || 'الكل';
-    const sort = els.sort.value;
-    let data = numbers.slice();
-    if(cf !== 'الكل') data = data.filter(n=> n.country === cf);
-    if(q){
-      data = data.filter(n=>
-        (n.country+n.code+n.app+n.value+n.price).toLowerCase().includes(q)
-      );
-    }
-    if(sort==='price-asc') data.sort((a,b)=>a.price-b.price);
-    if(sort==='price-desc') data.sort((a,b)=>b.price-a.price);
-    return data;
   }
 
   function waLinkFor(item){
-    const msg = `مرحباً، أريد هذا الرقم:\nالدولة: ${item.country} (${item.code})\nالتطبيق: ${item.app}\nالرمز/الرقم: ${item.value}\nالسعر: ${item.price} USD\n(تم الإرسال من موقع ${settings.name})`;
+    const msg = `مرحباً، أريد هذا الرقم: ${item.value} (${item.country}) - ${item.app} - السعر: ${item.price}`;
     return `https://wa.me/${settings.wa}?text=${encodeURIComponent(msg)}`;
   }
 
   function renderOffers(){
-    const data = filteredSorted();
-    els.offersGrid.innerHTML = data.map(item=>`
-      <div class="card">
-        <div class="content">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-            <div style="font-weight:800">${item.country} <span class="muted">${item.code}</span></div>
-            <span class="badge">${item.app}</span>
-          </div>
-          <div class="muted" style="margin-top:6px">${item.value}</div>
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px">
-            <div class="price">$${item.price}</div>
-            ${item.available
-              ? `<a class="btn primary" href="${waLinkFor(item)}" target="_blank">طلب عبر واتساب</a>`
-              : `<button class="btn" disabled>غير متاح</button>`}
-          </div>
-        </div>
+    const numbers = [
+      {country:'السعودية', code:'+966', app:'واتساب', value:'5X9-***-***', price: 8},
+      {country:'مصر', code:'+20', app:'تليجرام', value:'7T2-***-***', price: 5}
+    ];
+    els.offersGrid.innerHTML = numbers.map(item=>`
+      <div class="card" style="padding:20px;margin:10px 0">
+        <div>${item.country} (${item.code}) - ${item.app}</div>
+        <div>${item.value}</div>
+        <div>$${item.price}</div>
+        <a class="btn primary" href="${waLinkFor(item)}" target="_blank">طلب عبر واتساب</a>
       </div>
     `).join('');
   }
 
-  // Contact buttons
+  document.getElementById('adminLogin').addEventListener('click', ()=>{
+    const val = document.getElementById('adminPassInput').value;
+    if(val === 'admin123'){
+      document.getElementById('adminLocked').style.display='none';
+      document.getElementById('adminPanel').style.display='block';
+      document.getElementById('setName').value=settings.name;
+      document.getElementById('setWA').value=settings.wa;
+      document.getElementById('setWelcomeTitle').value=settings.welcomeTitle;
+      document.getElementById('setWelcomeMsg').value=settings.welcomeMsg;
+    }else alert('كلمة مرور خاطئة');
+  });
+
+  document.getElementById('saveSettings').addEventListener('click', ()=>{
+    settings.name=document.getElementById('setName').value||settings.name;
+    settings.wa=document.getElementById('setWA').value||settings.wa;
+    settings.welcomeTitle=document.getElementById('setWelcomeTitle').value||settings.welcomeTitle;
+    settings.welcomeMsg=document.getElementById('setWelcomeMsg').value||settings.welcomeMsg;
+    const file=document.getElementById('setLogoFile').files[0];
+    if(file){
+      const reader=new FileReader();
+      reader.onload=(e)=>{settings.logo=e.target.result;applySettings();};
+      reader.readAsDataURL(file);
+    }else{
+      applySettings();
+    }
+  });
+
   els.openWhatsApp.addEventListener('click', ()=>{
     window.open(`https://wa.me/${settings.wa}`,'_blank');
   });
-  els.copyNumber.addEventListener('click', async ()=>{
-    await navigator.clipboard.writeText(settings.wa);
-    alert('تم نسخ رقم الواتساب.');
-  });
 
-  // Filters events
-  [els.q, els.countryFilter, els.sort].forEach(el=> el.addEventListener('input', renderOffers));
-
-  // =============== Admin ===============
-  const adminLocked = document.getElementById('adminLocked');
-  const adminPanel  = document.getElementById('adminPanel');
-  document.getElementById('adminLogin').addEventListener('click', ()=>{
-    const val = document.getElementById('adminPassInput').value;
-    if(val === adminPass){
-      adminLocked.style.display='none';
-      adminPanel.style.display='block';
-      fillSettingsForm();
-      renderTable();
-    } else alert('كلمة مرور غير صحيحة');
-  });
-
-  function fillSettingsForm(){
-    document.getElementById('setName').value = settings.name;
-    document.getElementById('setLogo').value = settings.logo;
-    document.getElementById('setWA').value   = settings.wa;
-    document.getElementById('setWelcomeTitle').value = settings.welcomeTitle;
-    document.getElementById('setWelcomeMsg').value   = settings.welcomeMsg;
-  }
-
-  document.getElementById('saveSettings').addEventListener('click', ()=>{
-    settings.name = document.getElementById('setName').value || settings.name;
-    settings.logo = document.getElementById('setLogo').value || settings.logo;
-    settings.wa   = document.getElementById('setWA').value   || settings.wa;
-    settings.welcomeTitle = document.getElementById('setWelcomeTitle').value || settings.welcomeTitle;
-    settings.welcomeMsg   = document.getElementById('setWelcomeMsg').value   || settings.welcomeMsg;
-    save(LS_KEYS.settings, settings);
-    applySettings();
-    alert('تم حفظ الإعدادات');
-  });
-
-  document.getElementById('changePass').addEventListener('click', ()=>{
-    const np = prompt('أدخل كلمة مرور جديدة (لا تُنسى):');
-    if(np && np.length >= 4){ adminPass = np; save(LS_KEYS.pass, adminPass); alert('تم تغيير كلمة المرور'); }
-  });
-
-  document.getElementById('exportData').addEventListener('click', ()=>{
-    const blob = new Blob([JSON.stringify({settings, numbers, adminPass, sold}, null, 2)], {type:'application/json'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'backup-virtual-numbers.json';
-    a.click();
-  });
-
-  document.getElementById('importData').addEventListener('change', (e)=>{
-    const file = e.target.files[0];
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      try{
-        const data = JSON.parse(reader.result);
-        if(data.settings) settings = data.settings;
-        if(Array.isArray(data.numbers)) numbers = data.numbers;
-        if(typeof data.adminPass === 'string') adminPass = data.adminPass;
-        sold = Number(data.sold||0);
-        save(LS_KEYS.settings, settings);
-        save(LS_KEYS.numbers, numbers);
-        save(LS_KEYS.pass, adminPass);
-        save(LS_KEYS.sold, sold);
-        applySettings(); renderFilters(); renderOffers(); stats(); renderTable();
-        alert('تم الاستيراد بنجاح');
-      }catch(err){ alert('ملف غير صالح'); }
-    };
-    reader.readAsText(file);
-  });
-
-  // Manage numbers
-  document.getElementById('addNumber').addEventListener('click', ()=>{
-    const c = document.getElementById('numCountry').value.trim();
-    const code = document.getElementById('numCode').value.trim();
-    const value= document.getElementById('numValue').value.trim();
-    const app  = document.getElementById('numApp').value.trim();
-    const price= Number(document.getElementById('numPrice').value);
-    if(!c || !code || !value || !app || !price){ alert('أكمل جميع الحقول'); return; }
-    numbers.unshift({id: crypto.randomUUID(), country:c, code, value, app, price, available:true});
-    save(LS_KEYS.numbers, numbers);
-    renderTable(); renderFilters(); renderOffers(); stats();
-    document.getElementById('numCountry').value='';
-    document.getElementById('numCode').value='';
-    document.getElementById('numValue').value='';
-    document.getElementById('numApp').value='';
-    document.getElementById('numPrice').value='';
-  });
-
-  function renderTable(){
-    const t = document.getElementById('numbersTable');
-    if(!t) return;
-    const head = `
-      <tr>
-        <th>الدولة</th><th>الرمز</th><th>الرقم</th><th>التطبيق</th><th>السعر</th><th>الحالة</th><th>أوامر</th>
-      </tr>`;
-    const rows = numbers.map(n=>`
-      <tr>
-        <td>${n.country}</td>
-        <td>${n.code}</td>
-        <td>${n.value}</td>
-        <td>${n.app}</td>
-        <td>$${n.price}</td>
-        <td>${n.available? 'متاح' : 'مباع'}</td>
-        <td style="display:flex; gap:6px">
-          <button class="btn" onclick="toggleAvail('${n.id}')">تبديل</button>
-          <button class="btn warn" onclick="editNum('${n.id}')">تعديل</button>
-          <button class="btn danger" onclick="delNum('${n.id}')">حذف</button>
-        </td>
-      </tr>
-    `).join('');
-    t.innerHTML = head + rows;
-  }
-  window.toggleAvail = function(id){
-    const n = numbers.find(x=>x.id===id); if(!n) return;
-    n.available = !n.available;
-    if(!n.available){ sold = Number(sold||0)+1; save(LS_KEYS.sold, sold); }
-    save(LS_KEYS.numbers, numbers); renderTable(); renderOffers(); stats();
-  }
-  window.editNum = function(id){
-    const n = numbers.find(x=>x.id===id); if(!n) return;
-    const country = prompt('الدولة:', n.country)??n.country;
-    const code    = prompt('الرمز:', n.code)??n.code;
-    const value   = prompt('الرقم:', n.value)??n.value;
-    const app     = prompt('التطبيق:', n.app)??n.app;
-    const price   = Number(prompt('السعر:', n.price)??n.price);
-    Object.assign(n, {country, code, value, app, price});
-    save(LS_KEYS.numbers, numbers); renderTable(); renderOffers(); renderFilters();
-  }
-  window.delNum = function(id){
-    if(!confirm('حذف هذا الرقم؟')) return;
-    numbers = numbers.filter(x=>x.id!==id);
-    save(LS_KEYS.numbers, numbers); renderTable(); renderOffers(); renderFilters(); stats();
-  }
-
-  // =============== Init ===============
   applySettings();
-  renderFilters();
   renderOffers();
-  stats();
-  setRoute();
-
-  // ======== تنبيه مهم بخصوص واتساب ========
-  /*
-   ملاحظة: فتح الرسائل وإرسال طلبات الشراء يتم عبر رابط WhatsApp Click-to-Chat فقط.
-   لا يمكن للموقع قراءة ردود واتساب تلقائياً إلا باستخدام WhatsApp Business API وWebhook وخادم (باك-إند).
-   هذا الملف يعمل دون خادم (Static) ويُخزن البيانات في المتصفح (localStorage)، لذا هو مناسب كبداية/نموذج.
-  */
 </script>
 </body>
 </html>
