@@ -1,92 +1,115 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>بيع الأرقام الوهمية</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f0f0f0;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
     }
 
     header {
-      background: #0077cc;
+      background: #4CAF50;
       color: white;
-      padding: 15px;
-      text-align: center;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
     }
 
     nav {
-      background: #005fa3;
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+      gap: 15px;
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      padding: 10px 15px;
-      display: block;
+      font-weight: bold;
     }
 
-    nav a:hover {
-      background: #004d82;
+    /* زر القائمة في الجوال */
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
     }
 
     .container {
       padding: 20px;
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 15px;
       justify-content: center;
     }
 
     .card {
       background: white;
-      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      flex: 1 1 calc(33% - 20px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      flex: 1 1 calc(33% - 30px);
       max-width: 300px;
       text-align: center;
     }
 
+    .card h3 {
+      margin: 10px 0;
+    }
+
     .card button {
-      background: #0077cc;
+      background: #4CAF50;
       color: white;
       border: none;
-      padding: 10px;
-      margin-top: 10px;
+      padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
     }
 
     .card button:hover {
-      background: #005fa3;
+      background: #45a049;
     }
 
     footer {
-      background: #333;
-      color: white;
       text-align: center;
       padding: 15px;
+      background: #333;
+      color: white;
       margin-top: 20px;
     }
 
+    /* استجابة الشاشات */
     @media (max-width: 768px) {
       .card {
         flex: 1 1 calc(50% - 20px);
       }
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #4CAF50;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+      }
+      nav a {
+        padding: 10px 0;
+      }
+      .menu-toggle {
+        display: block;
+      }
     }
 
     @media (max-width: 480px) {
-      nav {
-        flex-direction: column;
-      }
       .card {
         flex: 1 1 100%;
       }
@@ -94,58 +117,48 @@
   </style>
 </head>
 <body>
-
   <header>
-    <h1 id="page-title">🌐 بيع الأرقام الوهمية</h1>
-    <p id="page-subtitle">مرحباً بك في موقعنا</p>
+    <h1>بيع الأرقام الوهمية</h1>
+    <span class="menu-toggle">☰</span>
+    <nav>
+      <a href="#home">الرئيسية</a>
+      <a href="#offers">العروض</a>
+      <a href="#contact">الاستفسارات</a>
+      <a href="#admin">لوحة المسؤول</a>
+    </nav>
   </header>
 
-  <nav>
-    <a href="#home">الترحيب</a>
-    <a href="#main">العروض</a>
-    <a href="#contact">استفسارات</a>
-    <a href="#admin">لوحة المسؤول</a>
-  </nav>
-
   <section id="home" class="container">
-    <div class="card">
-      <h2>أهلاً بك 👋</h2>
-      <p>هنا يمكنك استعراض الأرقام المتوفرة وطلب أي رقم بسهولة.</p>
-    </div>
+    <h2>مرحباً بك 👋</h2>
+    <p>هنا يمكنك شراء الأرقام الوهمية بسهولة.</p>
   </section>
 
-  <section id="main" class="container">
+  <section id="offers" class="container">
     <div class="card">
       <h3>رقم 1</h3>
       <p>السعر: 5$</p>
-      <button onclick="sendOrder('رقم 1')">اطلب الآن</button>
+      <button onclick="sendWhatsApp('رقم 1')">اطلب الآن</button>
     </div>
     <div class="card">
       <h3>رقم 2</h3>
       <p>السعر: 7$</p>
-      <button onclick="sendOrder('رقم 2')">اطلب الآن</button>
+      <button onclick="sendWhatsApp('رقم 2')">اطلب الآن</button>
     </div>
     <div class="card">
       <h3>رقم 3</h3>
       <p>السعر: 10$</p>
-      <button onclick="sendOrder('رقم 3')">اطلب الآن</button>
+      <button onclick="sendWhatsApp('رقم 3')">اطلب الآن</button>
     </div>
   </section>
 
   <section id="contact" class="container">
-    <div class="card">
-      <h2>الاستفسارات</h2>
-      <p>لأي سؤال يمكنك التواصل معنا عبر واتساب.</p>
-      <button onclick="sendOrder('استفسار عام')">تواصل معنا</button>
-    </div>
+    <h2>للاستفسارات</h2>
+    <p>تواصل معنا عبر الواتساب لأي استفسار.</p>
   </section>
 
   <section id="admin" class="container">
-    <div class="card">
-      <h2>لوحة المسؤول 🔐</h2>
-      <p>هنا يمكن للمسؤول تعديل الشعار، إضافة أو حذف الأرقام.</p>
-      <p><em>(محمية ولا يمكن الوصول إليها إلا من قبل المسؤول)</em></p>
-    </div>
+    <h2>لوحة المسؤول 🔒</h2>
+    <p>هذه الصفحة محمية ولا يحق الدخول إليها إلا للمسؤول.</p>
   </section>
 
   <footer>
@@ -153,13 +166,19 @@
   </footer>
 
   <script>
-    function sendOrder(item) {
-      let phone = "+967771234567"; // ضع رقم واتساب الخاص بك هنا
-      let message = `مرحبا، أريد طلب: ${item}`;
-      let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    // فتح/إغلاق القائمة في الجوال
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    toggle.addEventListener('click', () => {
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // إرسال الطلب عبر واتساب
+    function sendWhatsApp(product) {
+      let phone = "YOUR_PHONE_NUMBER"; // ضع رقمك هنا مع كود الدولة
+      let url = `https://wa.me/${phone}?text=مرحبا، أريد طلب ${product}`;
       window.open(url, "_blank");
     }
   </script>
-
 </body>
 </html>
