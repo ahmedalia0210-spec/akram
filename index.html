@@ -1,565 +1,165 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>متجر الأرقام الوهمية</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بيع الأرقام الوهمية</title>
   <style>
-    :root{
-      --bg:#0f172a;/* slate-900 */
-      --card:#111827;/* gray-900 */
-      --muted:#94a3b8;/* slate-400 */
-      --text:#e5e7eb;/* gray-200 */
-      --brand:#22c55e;/* green-500 */
-      --danger:#ef4444;/* red-500 */
-      --warning:#f59e0b;/* amber-500 */
-      --accent:#06b6d4;/* cyan-500 */
-      --radius:18px;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;background:linear-gradient(180deg,#0b1022, #0f172a 40%, #0b1022);
-      color:var(--text);font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Roboto, "Noto Kufi Arabic", sans-serif;
+
+    header {
+      background: #0077cc;
+      color: white;
+      padding: 15px;
+      text-align: center;
     }
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
-    header{
-      position:sticky;top:0;z-index:50;backdrop-filter: blur(10px);
-      background:rgba(15,23,42,.7);border-bottom:1px solid rgba(255,255,255,.06)
+
+    nav {
+      background: #005fa3;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:40px;height:40px;border-radius:12px;object-fit:cover;border:1px solid rgba(255,255,255,.12)}
-    .brand h1{margin:0;font-size:20px;letter-spacing:.5px}
-    .tabs{display:flex;gap:8px}
-    .tab{padding:10px 14px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,.08);cursor:pointer}
-    .tab.active{background:var(--brand);color:#04110a;border-color:transparent;font-weight:700}
-    .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#111827;color:var(--text);cursor:pointer}
-    .btn.brand{background:var(--brand);color:#04110a;border:none;font-weight:700}
-    .btn.warn{background:var(--warning);color:#0f172a;border:none;font-weight:700}
-    .btn.ghost{background:transparent}
-    .btn.danger{background:var(--danger);color:#fff;border:none}
-    .grid{display:grid;gap:16px}
-    .cards{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
-    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:16px;box-shadow: 0 10px 30px rgba(0,0,0,.25)}
-    .badge{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px}
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
-    .hero h2{font-size:32px;margin:0 0 10px}
-    .hero p{color:var(--muted);line-height:1.9}
-    .hero .panel{background:linear-gradient(180deg,rgba(34,197,94,.1), rgba(6,182,212,.1));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:18px}
-    .field{display:grid;gap:6px;margin-bottom:12px}
-    .field input,.field select,.field textarea{
-      width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0b1022;color:var(--text)
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
     }
-    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    footer{opacity:.7;padding:40px 0;text-align:center}
-    .hidden{display:none !important}
-    .pill{border-radius:999px;padding:6px 10px;border:1px dashed rgba(255,255,255,.18)}
-    .table{width:100%;border-collapse:separate;border-spacing:0 8px}
-    .table tr{background:var(--card)}
-    .table td,.table th{padding:10px 12px}
-    .table th{color:#a3a3a3;font-weight:600;text-align:right}
-    .table tr{border:1px solid rgba(255,255,255,.06);border-radius:14px}
-    .flex{display:flex}
-    .between{justify-content:space-between}
-    .center{justify-content:center}
-    .mt8{margin-top:8px}
-    .mt16{margin-top:16px}
-    .mt24{margin-top:24px}
-    .mt32{margin-top:32px}
-    .small{font-size:12px;color:var(--muted)}
-    .link{color:var(--accent);text-decoration:underline;cursor:pointer}
+
+    nav a:hover {
+      background: #004d82;
+    }
+
+    .container {
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      flex: 1 1 calc(33% - 20px);
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .card button {
+      background: #0077cc;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background: #005fa3;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        flex: 1 1 calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        flex-direction: column;
+      }
+      .card {
+        flex: 1 1 100%;
+      }
+    }
   </style>
 </head>
 <body>
+
   <header>
-    <div class="container nav">
-      <div class="brand">
-        <img id="siteLogo" src="https://avatars.githubusercontent.com/u/9919?s=200&v=4" alt="logo" />
-        <h1 id="siteName">متجر الأرقام</h1>
-        <span class="badge" id="siteTag">سريع وآمن</span>
-      </div>
-      <nav class="tabs">
-        <button class="tab active" data-route="#welcome">الترحيب</button>
-        <button class="tab" data-route="#home">الرئيسية</button>
-        <button class="tab" data-route="#contact">الاستفسارات</button>
-        <button class="tab" data-route="#admin">لوحة المسؤول</button>
-      </nav>
-    </div>
+    <h1 id="page-title">🌐 بيع الأرقام الوهمية</h1>
+    <p id="page-subtitle">مرحباً بك في موقعنا</p>
   </header>
 
-  <main class="container">
-    <!-- صفحة الترحيب -->
-    <section id="welcome" class="view">
-      <div class="hero mt24">
-        <div>
-          <h2 id="heroTitle">مرحباً بك في <span id="heroSiteName">متجر الأرقام</span></h2>
-          <p id="heroText">نوفّر أرقاماً مؤقتة للتفعيل والدردشة، مع تسليم فوري عبر واتساب ودعم على مدار الساعة. يمكنك اختيار الدولة والخدمة والسعر الذي يناسبك.</p>
-          <div class="row mt16">
-            <button class="btn brand" data-route="#home">تصفح العروض</button>
-            <button class="btn ghost" data-route="#contact">لديّ سؤال</button>
-          </div>
-          <div class="mt16 small">يمكن للمسؤول تعديل الشعار والاسم ونص الترحيب من لوحة التحكم.</div>
-        </div>
-        <div class="panel">
-          <div class="row between">
-            <div>
-              <div class="small">أرقام متاحة الآن</div>
-              <div style="font-size:28px;font-weight:800" id="statsAvailable">0</div>
-            </div>
-            <div>
-              <div class="small">طلبات قيد المعالجة</div>
-              <div style="font-size:28px;font-weight:800" id="statsPending">0</div>
-            </div>
-          </div>
-          <div class="mt16">
-            <span class="pill">دعم واتساب مباشر</span>
-            <span class="pill">دفع عند الاستلام (كود)</span>
-            <span class="pill">لوحة تحكم سهلة</span>
-          </div>
-        </div>
-      </div>
-    </section>
+  <nav>
+    <a href="#home">الترحيب</a>
+    <a href="#main">العروض</a>
+    <a href="#contact">استفسارات</a>
+    <a href="#admin">لوحة المسؤول</a>
+  </nav>
 
-    <!-- الصفحة الرئيسية: العروض -->
-    <section id="home" class="view hidden">
-      <div class="row between mt24">
-        <h2>العروض المتاحة</h2>
-        <div class="row">
-          <input id="searchInput" placeholder="ابحث بالدولة أو الخدمة" />
-          <select id="filterStatus">
-            <option value="">كل الحالات</option>
-            <option value="available">متاح</option>
-            <option value="sold">مباع</option>
-          </select>
-        </div>
-      </div>
-      <div class="grid cards mt16" id="offersGrid"></div>
-    </section>
+  <section id="home" class="container">
+    <div class="card">
+      <h2>أهلاً بك 👋</h2>
+      <p>هنا يمكنك استعراض الأرقام المتوفرة وطلب أي رقم بسهولة.</p>
+    </div>
+  </section>
 
-    <!-- صفحة الاستفسارات -->
-    <section id="contact" class="view hidden">
-      <div class="grid" style="grid-template-columns:1fr 1fr">
-        <div class="card">
-          <h3>ارسل استفسارك</h3>
-          <div class="field">
-            <label>الاسم</label>
-            <input id="inqName" placeholder="اسمك" />
-          </div>
-          <div class="field">
-            <label>وسيلة تواصل (واتساب/بريد)</label>
-            <input id="inqContact" placeholder="مثال: +9677xxxxxxx" />
-          </div>
-          <div class="field">
-            <label>الرسالة</label>
-            <textarea id="inqMsg" rows="4" placeholder="اكتب رسالتك"></textarea>
-          </div>
-          <button class="btn brand" id="sendInquiry">إرسال عبر واتساب</button>
-          <div class="small mt8">سيتم فتح واتساب برسالة جاهزة إلى رقم المتجر.</div>
-        </div>
-        <div class="card">
-          <h3>كيف تعمل الخدمة؟</h3>
-          <ol>
-            <li>اختر العرض المناسب من الصفحة الرئيسية.</li>
-            <li>اضغط "طلب عبر واتساب" ليصل طلبك مباشرة إلى المسؤول.</li>
-            <li>بعد الدفع أو التحقق، يرسل لك المسؤول كود التفعيل.</li>
-            <li>يمكن للمسؤول تحديث حالة الطلب من لوحة التحكم.</li>
-          </ol>
-          <div class="small mt16">ملاحظة: استقبال الرسائل تلقائياً من واتساب داخل الموقع يتطلب خادم (Webhook/API). هذا الملف يقدّم بديلاً عملياً: يستقبل المسؤول الرسالة على واتساب ويحدّث الحالة يدوياً في لوحة التحكم.</div>
-        </div>
-      </div>
-    </section>
+  <section id="main" class="container">
+    <div class="card">
+      <h3>رقم 1</h3>
+      <p>السعر: 5$</p>
+      <button onclick="sendOrder('رقم 1')">اطلب الآن</button>
+    </div>
+    <div class="card">
+      <h3>رقم 2</h3>
+      <p>السعر: 7$</p>
+      <button onclick="sendOrder('رقم 2')">اطلب الآن</button>
+    </div>
+    <div class="card">
+      <h3>رقم 3</h3>
+      <p>السعر: 10$</p>
+      <button onclick="sendOrder('رقم 3')">اطلب الآن</button>
+    </div>
+  </section>
 
-    <!-- لوحة المسؤول -->
-    <section id="admin" class="view hidden">
-      <div class="card">
-        <div class="row between">
-          <h2>لوحة المسؤول</h2>
-          <div id="adminLoggedOut" class="row">
-            <input id="adminPassInput" type="password" placeholder="كلمة مرور المسؤول" />
-            <button class="btn" id="loginBtn">دخول</button>
-          </div>
-          <div id="adminLoggedIn" class="row hidden">
-            <span class="badge">مسجل دخول</span>
-            <button class="btn warn" id="logoutBtn">خروج</button>
-          </div>
-        </div>
-      </div>
+  <section id="contact" class="container">
+    <div class="card">
+      <h2>الاستفسارات</h2>
+      <p>لأي سؤال يمكنك التواصل معنا عبر واتساب.</p>
+      <button onclick="sendOrder('استفسار عام')">تواصل معنا</button>
+    </div>
+  </section>
 
-      <div id="adminPanels" class="hidden">
-        <!-- إعدادات عامة -->
-        <div class="card mt16">
-          <h3>إعدادات عامة</h3>
-          <div class="grid" style="grid-template-columns:repeat(4,1fr)">
-            <div class="field">
-              <label>اسم الموقع</label>
-              <input id="setName" />
-            </div>
-            <div class="field">
-              <label>شعار (رابط صورة)</label>
-              <input id="setLogo" />
-            </div>
-            <div class="field">
-              <label>وسم مختصر</label>
-              <input id="setTag" />
-            </div>
-            <div class="field">
-              <label>رقم واتساب الإداري (بالصيغة الدولية)</label>
-              <input id="setWhats" placeholder="مثال: 9677XXXXXXX" />
-            </div>
-          </div>
-          <div class="field">
-            <label>نص الترحيب</label>
-            <textarea id="setHero" rows="2"></textarea>
-          </div>
-          <div class="row">
-            <button class="btn brand" id="saveSettings">حفظ الإعدادات</button>
-            <button class="btn" id="changeAdminPass">تغيير كلمة مرور المسؤول</button>
-            <button class="btn danger" id="resetAll">إعادة ضبط كل البيانات</button>
-          </div>
-        </div>
-
-        <!-- إدارة العروض -->
-        <div class="card mt16">
-          <div class="row between">
-            <h3>العروض/الأرقام</h3>
-            <div class="row">
-              <input id="newCountry" placeholder="الدولة" />
-              <input id="newService" placeholder="الخدمة (مثال: Telegram)" />
-              <input id="newNumber" placeholder="الرقم (اختياري)" />
-              <input id="newPrice" type="number" step="0.01" placeholder="السعر" />
-              <select id="newStatus"><option value="available">متاح</option><option value="sold">مباع</option></select>
-              <button class="btn brand" id="addOffer">إضافة</button>
-            </div>
-          </div>
-          <table class="table mt16" id="offersTable">
-            <thead>
-              <tr><th>الدولة</th><th>الخدمة</th><th>الرقم</th><th>السعر</th><th>الحالة</th><th>إجراءات</th></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-
-        <!-- الطلبات -->
-        <div class="card mt16">
-          <h3>الطلبات</h3>
-          <table class="table" id="ordersTable">
-            <thead>
-              <tr><th>#</th><th>العرض</th><th>العميل</th><th>وسيلة</th><th>الحالة</th><th>إجراءات</th></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </main>
+  <section id="admin" class="container">
+    <div class="card">
+      <h2>لوحة المسؤول 🔐</h2>
+      <p>هنا يمكن للمسؤول تعديل الشعار، إضافة أو حذف الأرقام.</p>
+      <p><em>(محمية ولا يمكن الوصول إليها إلا من قبل المسؤول)</em></p>
+    </div>
+  </section>
 
   <footer>
-    <div class="container small">© <span id="year"></span> <span id="footerName">متجر الأرقام</span> — جميع الحقوق محفوظة.</div>
+    <p>© 2025 بيع الأرقام الوهمية</p>
   </footer>
 
   <script>
-    // ---------------------- بيانات وتخزين ----------------------
-    const DB_KEY = 'virtualNumbersDB_v1';
-    const DEFAULTS = {
-      settings:{
-        name:'متجر الأرقام',
-        logo:'https://avatars.githubusercontent.com/u/9919?s=200&v=4',
-        tag:'سريع وآمن',
-        hero:'نوفّر أرقاماً مؤقتة للتفعيل والدردشة، مع تسليم فوري عبر واتساب ودعم على مدار الساعة. يمكنك اختيار الدولة والخدمة والسعر الذي يناسبك.',
-        adminPass:'1234',
-        whatsapp:'9677XXXXXXX' // ضع رقمك هنا بصيغة دولية بدون +
-      },
-      offers:[
-        {id:cryptoId(), country:'السعودية', service:'WhatsApp', number:'', price:6.5, status:'available'},
-        {id:cryptoId(), country:'تركيا', service:'Telegram', number:'', price:4.0, status:'available'},
-        {id:cryptoId(), country:'الولايات المتحدة', service:'Twitter/X', number:'', price:5.0, status:'sold'}
-      ],
-      orders:[]
-    };
-
-    function loadDB(){
-      try{ return JSON.parse(localStorage.getItem(DB_KEY)) || structuredClone(DEFAULTS); }catch{ return structuredClone(DEFAULTS); }
+    function sendOrder(item) {
+      let phone = "+967771234567"; // ضع رقم واتساب الخاص بك هنا
+      let message = `مرحبا، أريد طلب: ${item}`;
+      let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
     }
-    function saveDB(db){ localStorage.setItem(DB_KEY, JSON.stringify(db)); }
-
-    let db = loadDB();
-
-    // ---------------------- تنقل الصفحات ----------------------
-    const views = {
-      '#welcome': document.getElementById('welcome'),
-      '#home': document.getElementById('home'),
-      '#contact': document.getElementById('contact'),
-      '#admin': document.getElementById('admin')
-    };
-
-    function setRoute(hash){
-      if(!views[hash]) hash = '#welcome';
-      document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));
-      views[hash].classList.remove('hidden');
-      document.querySelectorAll('.tab').forEach(t=>{
-        t.classList.toggle('active', t.dataset.route===hash);
-      });
-      if(hash==='#home') renderOffers();
-      if(hash==='#admin') renderAdminState();
-      if(hash==='#welcome') updateStats();
-    }
-
-    document.querySelectorAll('[data-route]').forEach(el=>{
-      el.addEventListener('click', ()=>{
-        location.hash = el.dataset.route;
-      });
-    });
-
-    window.addEventListener('hashchange',()=>setRoute(location.hash));
-
-    // ---------------------- مكوّنات الواجهة ----------------------
-    function renderBrand(){
-      const s = db.settings;
-      document.getElementById('siteLogo').src = s.logo;
-      document.getElementById('siteName').textContent = s.name;
-      document.getElementById('footerName').textContent = s.name;
-      document.getElementById('siteTag').textContent = s.tag;
-      document.getElementById('heroSiteName').textContent = s.name;
-      document.getElementById('heroText').textContent = s.hero;
-      document.getElementById('year').textContent = new Date().getFullYear();
-    }
-
-    function updateStats(){
-      const available = db.offers.filter(o=>o.status==='available').length;
-      const pending = db.orders.filter(o=>o.status==='pending').length;
-      document.getElementById('statsAvailable').textContent = available;
-      document.getElementById('statsPending').textContent = pending;
-    }
-
-    // ----- العروض -----
-    const offersGrid = document.getElementById('offersGrid');
-    function renderOffers(){
-      const q = (document.getElementById('searchInput').value||'').trim().toLowerCase();
-      const st = document.getElementById('filterStatus').value;
-      offersGrid.innerHTML = '';
-      db.offers
-        .filter(o => !q || o.country.toLowerCase().includes(q) || o.service.toLowerCase().includes(q))
-        .filter(o => !st || o.status===st)
-        .forEach(o=>{
-          const card = document.createElement('div');
-          card.className='card';
-          card.innerHTML = `
-            <div class="row between">
-              <span class="badge">${o.country}</span>
-              <span class="badge">${o.service}</span>
-            </div>
-            <div class="mt16" style="font-size:22px;font-weight:800;">${o.number? o.number : 'رقم عند الطلب'}</div>
-            <div class="row between mt8">
-              <div><span class="small">السعر</span><div style="font-size:18px;font-weight:700">$${o.price}</div></div>
-              <div><span class="small">الحالة</span><div class="badge" style="background:${o.status==='available'?'rgba(34,197,94,.15)':'rgba(239,68,68,.15)'}">${o.status==='available'?'متاح':'مباع'}</div></div>
-            </div>
-            <div class="row mt16">
-              <button class="btn brand" ${o.status!=='available'?'disabled':''} data-order="${o.id}">طلب عبر واتساب</button>
-              <button class="btn" data-ask="${o.id}">استفسار</button>
-            </div>
-          `;
-          offersGrid.appendChild(card);
-        });
-      offersGrid.querySelectorAll('[data-order]').forEach(btn=>btn.addEventListener('click', onOrder));
-      offersGrid.querySelectorAll('[data-ask]').forEach(btn=>btn.addEventListener('click', onAsk));
-    }
-    document.getElementById('searchInput').addEventListener('input', renderOffers);
-    document.getElementById('filterStatus').addEventListener('change', renderOffers);
-
-    function onOrder(e){
-      const id = e.currentTarget.dataset.order;
-      const offer = db.offers.find(o=>o.id===id);
-      const order = { id: cryptoId(), offerId:id, customer:'', contact:'', status:'pending', createdAt: Date.now() };
-      db.orders.unshift(order); saveDB(db); updateStats();
-      const num = db.settings.whatsapp.replace(/\D/g,'');
-      const msg = encodeURIComponent(`طلب رقم وهمي\nالدولة: ${offer.country}\nالخدمة: ${offer.service}\nالسعر: $${offer.price}\nمعرّف العرض: ${offer.id}\nمعرّف الطلب: ${order.id}`);
-      window.open(`https://wa.me/${num}?text=${msg}`, '_blank');
-    }
-
-    function onAsk(e){
-      const id = e.currentTarget.dataset.ask;
-      const offer = db.offers.find(o=>o.id===id);
-      const num = db.settings.whatsapp.replace(/\D/g,'');
-      const msg = encodeURIComponent(`استفسار حول العرض\nالدولة: ${offer.country}\nالخدمة: ${offer.service}\nالسعر: $${offer.price}\nسؤال: `);
-      window.open(`https://wa.me/${num}?text=${msg}`, '_blank');
-    }
-
-    // ----- الاستفسارات -----
-    document.getElementById('sendInquiry').addEventListener('click', ()=>{
-      const name = document.getElementById('inqName').value.trim();
-      const contact = document.getElementById('inqContact').value.trim();
-      const msg = document.getElementById('inqMsg').value.trim();
-      const num = db.settings.whatsapp.replace(/\D/g,'');
-      const text = encodeURIComponent(`استفسار عميل\nالاسم: ${name}\nتواصل: ${contact}\n${msg}`);
-      window.open(`https://wa.me/${num}?text=${text}`, '_blank');
-    });
-
-    // ----- لوحة المسؤول -----
-    const adminPanels = document.getElementById('adminPanels');
-    const adminLoggedOut = document.getElementById('adminLoggedOut');
-    const adminLoggedIn = document.getElementById('adminLoggedIn');
-    let adminLogged = false;
-
-    function renderAdminState(){
-      if(adminLogged){
-        adminLoggedOut.classList.add('hidden');
-        adminLoggedIn.classList.remove('hidden');
-        adminPanels.classList.remove('hidden');
-        // تعبئة الإعدادات
-        const s = db.settings;
-        document.getElementById('setName').value = s.name;
-        document.getElementById('setLogo').value = s.logo;
-        document.getElementById('setTag').value = s.tag;
-        document.getElementById('setHero').value = s.hero;
-        document.getElementById('setWhats').value = s.whatsapp;
-        renderOffersTable();
-        renderOrdersTable();
-      }else{
-        adminLoggedOut.classList.remove('hidden');
-        adminLoggedIn.classList.add('hidden');
-        adminPanels.classList.add('hidden');
-      }
-    }
-
-    document.getElementById('loginBtn').addEventListener('click',()=>{
-      const input = document.getElementById('adminPassInput').value;
-      if(input === db.settings.adminPass){ adminLogged = true; renderAdminState(); alert('تم الدخول بنجاح'); }
-      else alert('كلمة المرور غير صحيحة');
-    });
-    document.getElementById('logoutBtn').addEventListener('click',()=>{ adminLogged=false; renderAdminState(); });
-
-    document.getElementById('saveSettings').addEventListener('click',()=>{
-      db.settings.name = document.getElementById('setName').value || db.settings.name;
-      db.settings.logo = document.getElementById('setLogo').value || db.settings.logo;
-      db.settings.tag  = document.getElementById('setTag').value  || db.settings.tag;
-      db.settings.hero = document.getElementById('setHero').value || db.settings.hero;
-      db.settings.whatsapp = document.getElementById('setWhats').value || db.settings.whatsapp;
-      saveDB(db); renderBrand(); alert('تم حفظ الإعدادات');
-    });
-
-    document.getElementById('changeAdminPass').addEventListener('click',()=>{
-      const oldp = prompt('أدخل كلمة المرور الحالية');
-      if(oldp !== db.settings.adminPass) return alert('غير صحيحة');
-      const p1 = prompt('أدخل كلمة مرور جديدة قوية');
-      if(!p1) return;
-      db.settings.adminPass = p1; saveDB(db); alert('تم تغيير كلمة المرور');
-    });
-
-    document.getElementById('resetAll').addEventListener('click',()=>{
-      if(confirm('سيتم مسح كل البيانات المخزنة محلياً وإعادتها للوضع الافتراضي!')){
-        db = structuredClone(DEFAULTS); saveDB(db); renderBrand(); setRoute('#welcome'); alert('تمت إعادة الضبط');
-      }
-    });
-
-    // إدارة العروض في لوحة المسؤول
-    document.getElementById('addOffer').addEventListener('click',()=>{
-      const country = document.getElementById('newCountry').value.trim();
-      const service = document.getElementById('newService').value.trim();
-      const number  = document.getElementById('newNumber').value.trim();
-      const price   = parseFloat(document.getElementById('newPrice').value || '0');
-      const status  = document.getElementById('newStatus').value;
-      if(!country || !service || !price) return alert('يرجى تعبئة الدولة والخدمة والسعر');
-      db.offers.unshift({id:cryptoId(), country, service, number, price, status});
-      saveDB(db); renderOffersTable(); renderOffers(); updateStats();
-      document.getElementById('newCountry').value='';
-      document.getElementById('newService').value='';
-      document.getElementById('newNumber').value='';
-      document.getElementById('newPrice').value='';
-      document.getElementById('newStatus').value='available';
-    });
-
-    function renderOffersTable(){
-      const tbody = document.querySelector('#offersTable tbody');
-      tbody.innerHTML='';
-      db.offers.forEach(o=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${o.country}</td>
-          <td>${o.service}</td>
-          <td>${o.number||'-'}</td>
-          <td>$${o.price}</td>
-          <td>${o.status==='available'?'متاح':'مباع'}</td>
-          <td class="row">
-            <button class="btn" data-edit="${o.id}">تعديل</button>
-            <button class="btn danger" data-del="${o.id}">حذف</button>
-          </td>`;
-        tbody.appendChild(tr);
-      });
-      tbody.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click', e=>{
-        const id = e.currentTarget.dataset.del;
-        if(confirm('حذف هذا العرض؟')){ db.offers = db.offers.filter(x=>x.id!==id); saveDB(db); renderOffersTable(); renderOffers(); updateStats(); }
-      }));
-      tbody.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click', e=>{
-        const id = e.currentTarget.dataset.edit;
-        const o = db.offers.find(x=>x.id===id);
-        const country = prompt('الدولة', o.country) || o.country;
-        const service = prompt('الخدمة', o.service) || o.service;
-        const number  = prompt('الرقم (اختياري)', o.number) ?? o.number;
-        const price   = parseFloat(prompt('السعر', o.price) || o.price);
-        const status  = prompt('الحالة (available/sold)', o.status) || o.status;
-        Object.assign(o, {country, service, number, price, status});
-        saveDB(db); renderOffersTable(); renderOffers(); updateStats();
-      }));
-    }
-
-    // إدارة الطلبات في لوحة المسؤول
-    function renderOrdersTable(){
-      const tbody = document.querySelector('#ordersTable tbody');
-      tbody.innerHTML='';
-      db.orders.forEach((o,idx)=>{
-        const off = db.offers.find(x=>x.id===o.offerId);
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${idx+1}</td>
-          <td>${off? off.country+' — '+off.service : 'عرض محذوف'}</td>
-          <td>${o.customer||'-'}</td>
-          <td>${o.contact||'-'}</td>
-          <td>${statusBadge(o.status)}</td>
-          <td class="row">
-            <button class="btn" data-status="paid:${o.id}">تم الدفع</button>
-            <button class="btn" data-status="sent:${o.id}">أُرسل الكود</button>
-            <button class="btn warn" data-status="cancel:${o.id}">إلغاء</button>
-            <button class="btn" data-fill="${o.id}">بيانات العميل</button>
-          </td>`;
-        tbody.appendChild(tr);
-      });
-      tbody.querySelectorAll('[data-status]').forEach(b=>b.addEventListener('click', e=>{
-        const [action,id] = e.currentTarget.dataset.status.split(':');
-        const ord = db.orders.find(x=>x.id===id);
-        if(!ord) return;
-        if(action==='paid') ord.status='paid';
-        if(action==='sent') ord.status='completed';
-        if(action==='cancel') ord.status='canceled';
-        saveDB(db); renderOrdersTable(); updateStats();
-      }));
-      tbody.querySelectorAll('[data-fill]').forEach(b=>b.addEventListener('click', e=>{
-        const id = e.currentTarget.dataset.fill;
-        const ord = db.orders.find(x=>x.id===id);
-        if(!ord) return;
-        const customer = prompt('اسم العميل', ord.customer||'') || ord.customer;
-        const contact  = prompt('وسيلة التواصل', ord.contact||'') || ord.contact;
-        Object.assign(ord, {customer, contact});
-        saveDB(db); renderOrdersTable();
-      }));
-    }
-
-    function statusBadge(st){
-      const map = {pending:'قيد المعالجة', paid:'مدفوع', completed:'مكتمل', canceled:'ملغي'};
-      return `<span class="badge">${map[st]||st}</span>`
-    }
-
-    // ---------------------- أدوات ----------------------
-    function cryptoId(){
-      return (self.crypto && crypto.randomUUID)? crypto.randomUUID() : 'id_'+Math.random().toString(36).slice(2,10);
-    }
-
-    // ---------------------- تهيئة ----------------------
-    renderBrand();
-    setRoute(location.hash||'#welcome');
-    updateStats();
   </script>
-</body>
 
+</body>
 </html>
