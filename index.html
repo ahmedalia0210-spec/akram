@@ -1,569 +1,823 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>متجر الأرقام</title>
-  <style>
-    :root{
-      --bg:#0f172a; /* slate-900 */
-      --card:#111827; /* gray-900 */
-      --muted:#334155; /* slate-600 */
-      --text:#e5e7eb; /* gray-200 */
-      --accent:#22c55e; /* green-500 */
-      --danger:#ef4444; /* red-500 */
-      --warn:#f59e0b;  /* amber-500 */
-      --link:#60a5fa;  /* blue-400 */
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#0b1025,#0f172a);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
-    a{color:var(--link);text-decoration:none}
-    .container{max-width:1100px;margin:0 auto;padding:16px}
-    header{position:sticky;top:0;background:rgba(15,23,42,.8);backdrop-filter:blur(8px);border-bottom:1px solid #1f2937;z-index:50}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:44px;height:44px;border-radius:12px;object-fit:cover;border:1px solid #1f2937}
-    .brand h1{font-size:18px;margin:0}
-    .nav-links{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{padding:10px 14px;border-radius:12px;border:1px solid #1f2937;background:#0b1229;color:var(--text);cursor:pointer}
-    .btn:hover{border-color:#334155}
-    .btn.primary{background:var(--accent);color:#06210e;border-color:transparent}
-    .btn.ghost{background:transparent}
-    .btn.warn{background:var(--warn);color:#1f1300;border-color:transparent}
-    .btn.danger{background:var(--danger);color:#2b0a0a;border-color:transparent}
-    .grid{display:grid;gap:16px}
-    .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width:900px){.grid.cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media (max-width:640px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
-    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,.3)}
-    .card .p{padding:16px}
-    .muted{color:#94a3b8}
-    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-    .input, select, textarea{background:#0b1229;border:1px solid #1f2937;border-radius:12px;padding:10px 12px;color:var(--text)}
-    .input:focus, select:focus, textarea:focus{outline:2px solid #334155}
-    .table{width:100%;border-collapse:collapse}
-    .table th,.table td{padding:10px;border-bottom:1px solid #1f2937;text-align:right}
-    .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid #1f2937}
-    .pill.ok{background:rgba(34,197,94,.15)}
-    .pill.no{background:rgba(239,68,68,.15)}
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;margin-top:16px}
-    @media(max-width:900px){.hero{grid-template-columns:1fr}}
-    .hero-visual{height:280px;background:radial-gradient(120px 120px at 20% 30%,#1d2a57,transparent 60%),radial-gradient(140px 140px at 80% 70%,#123860,transparent 60%);border-radius:18px;border:1px solid #1f2937}
-    footer{padding:32px 0;color:#94a3b8;border-top:1px solid #1f2937;margin-top:32px}
-    .badge{font-size:12px;background:#0b1229;border:1px solid #1f2937;border-radius:999px;padding:6px 10px;color:#a5b4fc}
-    .hidden{display:none !important}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بيع الأرقام الوهمية</title>
+    <style>
+        :root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #ff6b6b;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --success-color: #28a745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7fe;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* التصميم العام للرأس */
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-left: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* تصميم الصفحة الترحيبية */
+        .welcome-page {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .welcome-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .welcome-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .welcome-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* تصميم الصفحة الرئيسية */
+        .main-page {
+            display: none;
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .offer-header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .offer-body {
+            padding: 20px;
+        }
+
+        .offer-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+
+        .offer-features {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .offer-features li {
+            padding: 5px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .offer-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* تصميم نموذج الطلب */
+        .request-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        /* تصميم لوحة المسؤول */
+        .admin-panel {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .admin-login {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-dashboard {
+            display: none;
+        }
+
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .admin-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-left: 5px;
+        }
+
+        .admin-tab.active {
+            background: white;
+            border-bottom: 1px solid white;
+            margin-bottom: -1px;
+        }
+
+        .admin-content {
+            background: white;
+            padding: 20px;
+            border-radius: 0 0 5px 5px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .admin-table th {
+            background-color: #f8f9fa;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 15px;
+            }
+
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-content h2 {
+                font-size: 2rem;
+            }
+
+            .welcome-content p {
+                font-size: 1rem;
+            }
+        }
+
+        /* إشعارات */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: var(--success-color);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <img id="siteLogo" src="https://i.postimg.cc/7ZP6hNL9/number-shop.png" alt="logo"/>
-        <h1 id="siteName">متجر الأرقام</h1>
-        <span class="badge" id="liveBadge">حيّ ومباشر</span>
-      </div>
-      <nav class="nav-links">
-        <a class="btn ghost" href="#/welcome">ترحيب</a>
-        <a class="btn ghost" href="#/home">الرئيسية</a>
-        <a class="btn ghost" href="#/faq">استفسارات</a>
-        <a class="btn" id="goAdmin" href="#/admin">المسؤول</a>
-      </nav>
-    </div>
-  </header>
+    <!-- الرأس -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTAgM0g1YTIgMiAwIDAgMC0yIDJ2M2EyIDIgMCAwIDAgMiAyaDVsNSA0VjVhMiAyIDAgMCAwLTItMnoiPjwvcGF0aD48cGF0aCBkPSJNMTQgM2g1YTIgMiAwIDAgMSAyIDJ2M2EyIDIgMCAwIDEtMiAyaC01Ij48L3BhdGg+PHBhdGggZD0iTTE0IDEzdjRsLTUtNGg0YTIgMiAwIDAgMCAyLTJWNWEyIDIgMCAwIDAtMi0yaC01bDUgNHY0eiI+PC9wYXRoPjxwYXRoIGQ9Ik0xNCAxM3Y0bC01LTRoNGEyIDIgMCAwIDAgMi0yVjVhMiAyIDAgMCAwLTItMmgtNWw1IDR2NHoiPjwvcGF0aD48L3N2Zz4=" alt="شعار الأرقام الوهمية">
+                <h1 id="site-name">أرقامنا الوهمية</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showPage('welcome')">الرئيسية</a></li>
+                    <li><a href="#" onclick="showPage('main')">العروض</a></li>
+                    <li><a href="#" onclick="showPage('admin')">المسؤول</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <main class="container">
-    <!-- Welcome Page -->
-    <section id="page-welcome" class="page">
-      <div class="hero">
-        <div class="card p">
-          <h2 id="welcomeTitle" style="margin-top:0">مرحباً بك في <span id="welcomeSiteName">متجر الأرقام</span> 👋</h2>
-          <p class="muted" id="welcomeSub">نوفر لك أرقام تفعيل جاهزة مع تحديثات فورية وعروض خاصة.</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-            <a href="#/home" class="btn primary">تصفح العروض</a>
-            <a href="#/faq" class="btn">الاستفسارات</a>
-          </div>
+    <!-- الصفحة الترحيبية -->
+    <section id="welcome-page" class="welcome-page">
+        <div class="container welcome-content">
+            <h2 id="welcome-title">مرحباً بكم في متجر الأرقام الوهمية</h2>
+            <p id="welcome-text">نوفر لكم أفضل الأرقام الوهمية بجودة عالية وأسعار مناسبة. اختر الرقم الذي يناسبك واستمتع بخدماتنا المميزة.</p>
+            <a href="#" class="btn" onclick="showPage('main')">استعرض العروض</a>
         </div>
-        <div class="hero-visual"></div>
-      </div>
-
-      <div class="grid cols-3" style="margin-top:18px">
-        <div class="card p">
-          <h3>سرعة التحديث</h3>
-          <p class="muted">أي تغيير من المسؤول يظهر للجميع مباشرة.</p>
-        </div>
-        <div class="card p">
-          <h3>مرونة لجميع الأجهزة</h3>
-          <p class="muted">تصميم متجاوب يعمل على الجوال والكمبيوتر والتابلت.</p>
-        </div>
-        <div class="card p">
-          <h3>طلب عبر واتساب</h3>
-          <p class="muted">زر طلب يرسل تفاصيل الرقم إلى واتساب المسؤول.</p>
-        </div>
-      </div>
     </section>
 
-    <!-- Home / Offers Page -->
-    <section id="page-home" class="page hidden">
-      <div class="card p" style="margin-top:16px">
-        <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
-          <div style="display:flex;gap:10px;align-items:center">
-            <h2 style="margin:0">العروض المتاحة</h2>
-            <span class="pill" id="countBadge">0 المتاح</span>
-          </div>
-          <input id="search" class="input" placeholder="ابحث برقم الدولة أو الرقم…" />
+    <!-- الصفحة الرئيسية -->
+    <section id="main-page" class="main-page">
+        <div class="container">
+            <h2 class="section-title">عروض الأرقام الوهمية</h2>
+            
+            <div class="offers-grid" id="offers-container">
+                <!-- سيتم ملء العروض من خلال JavaScript -->
+            </div>
+            
+            <h2 class="section-title">طلب رقم وهمي</h2>
+            <div class="request-form">
+                <div class="form-group">
+                    <label for="phone-type">نوع الرقم:</label>
+                    <select id="phone-type">
+                        <option value="personal">رقم شخصي</option>
+                        <option value="business">رقم أعمال</option>
+                        <option value="temporary">رقم مؤقت</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="country">البلد:</label>
+                    <select id="country">
+                        <option value="saudi">السعودية</option>
+                        <option value="uae">الإمارات</option>
+                        <option value="kuwait">الكويت</option>
+                        <option value="egypt">مصر</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="duration">مدة الاستخدام:</label>
+                    <select id="duration">
+                        <option value="1">أسبوع واحد</option>
+                        <option value="2">أسبوعان</option>
+                        <option value="4">شهر واحد</option>
+                        <option value="12">3 أشهر</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">ملاحظات إضافية:</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                <button class="btn" onclick="sendRequest()">إرسال الطلب</button>
+            </div>
         </div>
-        <div id="offers" class="grid cols-3" style="margin-top:12px"></div>
-      </div>
     </section>
 
-    <!-- FAQ / Inquiries Page -->
-    <section id="page-faq" class="page hidden">
-      <div class="card p" style="margin-top:16px">
-        <h2 style="margin-top:0">الأسئلة الشائعة</h2>
-        <details open>
-          <summary>كيف أطلب رقماً؟</summary>
-          <p class="muted">اختر الرقم ثم اضغط "طلب عبر واتساب" لإرسال تفاصيل الطلب مباشرة للمسؤول.</p>
-        </details>
-        <details>
-          <summary>كيف أستلم كود التفعيل؟</summary>
-          <p class="muted">بعد الدفع، يرسل لك المسؤول الكود عبر واتساب. حالة طلبك تتحدث داخل الموقع.</p>
-        </details>
-        <details>
-          <summary>هل التحديثات فورية؟</summary>
-          <p class="muted">نعم، أي تعديل من صفحة المسؤول يظهر فوراً لكل الزوار.</p>
-        </details>
-      </div>
+    <!-- لوحة المسؤول -->
+    <section id="admin-panel" class="admin-panel">
+        <div class="container">
+            <h2 class="section-title">لوحة التحكم للمسؤول</h2>
+            
+            <div id="admin-login" class="admin-login">
+                <div class="form-group">
+                    <label for="admin-username">اسم المستخدم:</label>
+                    <input type="text" id="admin-username" placeholder="أدخل اسم المستخدم">
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">كلمة المرور:</label>
+                    <input type="password" id="admin-password" placeholder="أدخل كلمة المرور">
+                </div>
+                <button class="btn" onclick="adminLogin()">تسجيل الدخول</button>
+            </div>
+            
+            <div id="admin-dashboard" class="admin-dashboard">
+                <div class="admin-tabs">
+                    <div class="admin-tab active" onclick="showAdminTab('numbers')">إدارة الأرقام</div>
+                    <div class="admin-tab" onclick="showAdminTab('settings')">الإعدادات</div>
+                    <div class="admin-tab" onclick="showAdminTab('requests')">الطلبات</div>
+                </div>
+                
+                <div class="admin-content">
+                    <div id="admin-numbers" class="admin-tab-content">
+                        <h3>إدارة الأرقام</h3>
+                        <button class="btn" onclick="addNewNumber()">إضافة رقم جديد</button>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>الرقم</th>
+                                    <th>النوع</th>
+                                    <th>البلد</th>
+                                    <th>السعر</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="numbers-table-body">
+                                <!-- سيتم ملء الجدول من خلال JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="admin-settings" class="admin-tab-content" style="display:none">
+                        <h3>إعدادات الموقع</h3>
+                        <div class="form-group">
+                            <label for="site-name-input">اسم الموقع:</label>
+                            <input type="text" id="site-name-input" onchange="updateSiteSettings()">
+                        </div>
+                        <div class="form-group">
+                            <label for="welcome-title-input">عنوان الصفحة الترحيبية:</label>
+                            <input type="text" id="welcome-title-input" onchange="updateSiteSettings()">
+                        </div>
+                        <div class="form-group">
+                            <label for="welcome-text-input">نص الصفحة الترحيبية:</label>
+                            <textarea id="welcome-text-input" rows="3" onchange="updateSiteSettings()"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-whatsapp">رقم واتساب للطلبات:</label>
+                            <input type="text" id="admin-whatsapp" onchange="updateSiteSettings()" placeholder="مثال: 966512345678">
+                        </div>
+                    </div>
+                    
+                    <div id="admin-requests" class="admin-tab-content" style="display:none">
+                        <h3>طلبات العملاء</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>التاريخ</th>
+                                    <th>نوع الرقم</th>
+                                    <th>البلد</th>
+                                    <th>المدة</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requests-table-body">
+                                <!-- سيتم ملء الجدول من خلال JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Admin Page -->
-    <section id="page-admin" class="page hidden">
-      <div class="card p" style="margin-top:16px">
-        <h2 style="margin-top:0">لوحة تحكم المسؤول</h2>
-
-        <div id="adminLogin">
-          <div class="grid cols-2">
-            <div>
-              <div class="field">
-                <label>كلمة مرور المسؤول</label>
-                <input id="adminPass" class="input" type="password" placeholder="********" />
-              </div>
-              <button class="btn primary" id="loginBtn">دخول</button>
-              <p class="muted" style="margin-top:8px">تلميح: يمكنك تغيير كلمة المرور من قسم الإعدادات بعد الدخول.</p>
-            </div>
-            <div class="card p">
-              <h3 style="margin-top:0">ملاحظات الأمان</h3>
-              <ul class="muted">
-                <li>هذه الحماية أساسية (عميل فقط). للأمان الكامل استخدم خادماً أو قواعد أمان Firestore قوية.</li>
-                <li>لا تشارك كلمة المرور.</li>
-              </ul>
-            </div>
-          </div>
+    <!-- التذييل -->
+    <footer>
+        <div class="container">
+            <p>© 2023 جميع الحقوق محفوظة - متجر الأرقام الوهمية</p>
         </div>
+    </footer>
 
-        <div id="adminPanel" class="hidden">
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-            <button class="btn" data-tab="tab-settings">الإعدادات العامة</button>
-            <button class="btn" data-tab="tab-numbers">إدارة الأرقام</button>
-            <button class="btn" data-tab="tab-orders">طلبات العملاء</button>
-            <button class="btn warn" id="logoutBtn">خروج</button>
-          </div>
+    <!-- إشعار -->
+    <div id="notification" class="notification"></div>
 
-          <!-- Settings -->
-          <div id="tab-settings" class="card p">
-            <h3 style="margin-top:0">الإعدادات العامة</h3>
-            <div class="grid cols-2">
-              <div>
-                <div class="field">
-                  <label>اسم الموقع</label>
-                  <input id="setName" class="input" />
-                </div>
-                <div class="field">
-                  <label>رابط الشعار</label>
-                  <input id="setLogo" class="input" />
-                </div>
-                <div class="field">
-                  <label>رقم واتساب المسؤول (مع رمز الدولة)</label>
-                  <input id="setWhatsapp" class="input" placeholder="مثال: 9677XXXXXXX" />
-                </div>
-                <div class="field">
-                  <label>كلمة مرور جديدة للمسؤول</label>
-                  <input id="setNewPass" class="input" type="password" />
-                </div>
-                <button class="btn primary" id="saveSettings">حفظ الإعدادات</button>
-              </div>
-              <div>
-                <p class="muted">تظهر هذه الإعدادات أمام الجميع مباشرة بعد الحفظ.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Numbers -->
-          <div id="tab-numbers" class="card p hidden">
-            <h3 style="margin-top:0">إدارة الأرقام</h3>
-            <div class="grid cols-2">
-              <div class="card p">
-                <h4 style="margin-top:0">إضافة / تعديل</h4>
-                <div class="field"><label>المعرف (اختياري للتعديل)</label><input id="numId" class="input" placeholder="اتركه فارغاً للإضافة"/></div>
-                <div class="field"><label>الدولة</label><input id="numCountry" class="input" placeholder="اليمن، السعودية…"/></div>
-                <div class="field"><label>الرقم</label><input id="numNumber" class="input" placeholder="7xxxxxxxx"/></div>
-                <div class="field"><label>السعر</label><input id="numPrice" class="input" type="number" min="0" step="0.01"/></div>
-                <div class="field"><label>متاح؟</label>
-                  <select id="numAvailable">
-                    <option value="true">نعم</option>
-                    <option value="false">لا</option>
-                  </select>
-                </div>
-                <button class="btn primary" id="saveNumber">حفظ الرقم</button>
-                <button class="btn danger" id="deleteNumber">حذف بالمعرف</button>
-              </div>
-
-              <div>
-                <table class="table" id="numbersTable">
-                  <thead>
-                    <tr><th>المعرف</th><th>الدولة</th><th>الرقم</th><th>السعر</th><th>الحالة</th></tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- Orders -->
-          <div id="tab-orders" class="card p hidden">
-            <h3 style="margin-top:0">طلبات العملاء</h3>
-            <table class="table" id="ordersTable">
-              <thead>
-                <tr><th>المعرف</th><th>الرقم</th><th>السعر</th><th>العميل</th><th>واتساب</th><th>الحالة</th><th>إجراءات</th></tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="container">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-      <span id="footerText">© <span id="yearNow"></span> متجر الأرقام – جميع الحقوق محفوظة</span>
-      <span class="muted">نسخة أمامية فقط – تحتاج إلى Firebase للعمل الحي</span>
-    </div>
-  </footer>
-
-  <!-- Firebase v9 (modular) -->
-  <script type="module">
-    // ====== 1) ضع مفاتيح Firebase الخاصة بك هنا ======
-    // أنشئ مشروعاً من console.firebase.google.com ثم فعّل Firestore أو Realtime Database.
-    // هذا المثال يستخدم Firestore.
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot, collection, addDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "PASTE_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // ====== 2) عناصر DOM ======
-    const pages = {
-      welcome: document.getElementById('page-welcome'),
-      home: document.getElementById('page-home'),
-      faq: document.getElementById('page-faq'),
-      admin: document.getElementById('page-admin')
-    };
-
-    const siteNameEl = document.getElementById('siteName');
-    const siteLogoEl = document.getElementById('siteLogo');
-    const welcomeSiteNameEl = document.getElementById('welcomeSiteName');
-    const welcomeTitleEl = document.getElementById('welcomeTitle');
-    const welcomeSubEl = document.getElementById('welcomeSub');
-    const offersWrap = document.getElementById('offers');
-    const countBadge = document.getElementById('countBadge');
-    const searchInput = document.getElementById('search');
-
-    const adminLogin = document.getElementById('adminLogin');
-    const adminPanel = document.getElementById('adminPanel');
-    const adminPass = document.getElementById('adminPass');
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
-
-    const setName = document.getElementById('setName');
-    const setLogo = document.getElementById('setLogo');
-    const setWhatsapp = document.getElementById('setWhatsapp');
-    const setNewPass = document.getElementById('setNewPass');
-    const saveSettings = document.getElementById('saveSettings');
-
-    const numId = document.getElementById('numId');
-    const numCountry = document.getElementById('numCountry');
-    const numNumber = document.getElementById('numNumber');
-    const numPrice = document.getElementById('numPrice');
-    const numAvailable = document.getElementById('numAvailable');
-    const saveNumber = document.getElementById('saveNumber');
-    const deleteNumberBtn = document.getElementById('deleteNumber');
-    const numbersTable = document.querySelector('#numbersTable tbody');
-
-    const ordersTable = document.querySelector('#ordersTable tbody');
-
-    const footerYear = document.getElementById('yearNow');
-    footerYear.textContent = new Date().getFullYear();
-
-    // ====== 3) بيانات Firestore ======
-    const settingsRef = doc(db, 'meta', 'settings');
-    const numbersCol = collection(db, 'numbers');
-    const ordersCol = collection(db, 'orders');
-
-    // أول تشغيل: تأكد من وجود إعدادات افتراضية
-    async function ensureDefaults(){
-      const snap = await getDoc(settingsRef);
-      if(!snap.exists()){
-        await setDoc(settingsRef, {
-          siteName: 'متجر الأرقام',
-          logoUrl: 'https://i.postimg.cc/7ZP6hNL9/number-shop.png',
-          welcomeTitle: 'مرحباً بك في متجر الأرقام 👋',
-          welcomeSub: 'نوفر لك أرقام تفعيل جاهزة مع تحديثات فورية وعروض خاصة.',
-          whatsappAdmin: '9677XXXXXXXX',
-          adminPassword: 'admin123', // للتجربة – غيّرها فوراً
-          footerText: '© جميع الحقوق محفوظة',
-          updatedAt: Date.now()
-        });
-      }
-    }
-
-    // بث مباشر للإعدادات ليتغير كل شيء للجميع
-    onSnapshot(settingsRef, (docSnap)=>{
-      if(docSnap.exists()){
-        const s = docSnap.data();
-        siteNameEl.textContent = s.siteName || 'متجر الأرقام';
-        welcomeSiteNameEl.textContent = s.siteName || 'متجر الأرقام';
-        if(s.welcomeTitle) welcomeTitleEl.firstChild && (welcomeTitleEl.firstChild.textContent = s.welcomeTitle + ' ');
-        if(s.welcomeSub) welcomeSubEl.textContent = s.welcomeSub;
-        if(s.logoUrl) siteLogoEl.src = s.logoUrl;
-        document.getElementById('footerText').innerHTML = s.footerText || '';
-
-        // عبّي حقول الإعدادات عند فتح لوحة التحكم
-        setName.value = s.siteName || '';
-        setLogo.value = s.logoUrl || '';
-        setWhatsapp.value = s.whatsappAdmin || '';
-      }
-    });
-
-    // بث مباشر للأرقام
-    const qNumbers = query(numbersCol, orderBy('country','asc'));
-    onSnapshot(qNumbers, (qs)=>{
-      const list = [];
-      numbersTable.innerHTML = '';
-      offersWrap.innerHTML = '';
-      qs.forEach(d=>{
-        const v = d.data();
-        list.push({id:d.id, ...v});
-        // جدول الإدارة
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${d.id}</td><td>${v.country||''}</td><td>${v.number||''}</td><td>${(v.price||0)}$</td><td>${v.available?'<span class="pill ok">متاح</span>':'<span class="pill no">غير متاح</span>'}</td>`;
-        tr.onclick = ()=>{
-          numId.value = d.id;
-          numCountry.value = v.country||'';
-          numNumber.value = v.number||'';
-          numPrice.value = v.price||0;
-          numAvailable.value = v.available? 'true':'false';
-          window.location.hash = '#/admin';
-          switchTab('tab-numbers');
+    <script>
+        // بيانات التطبيق
+        let appData = {
+            siteName: "أرقامنا الوهمية",
+            welcomeTitle: "مرحباً بكم في متجر الأرقام الوهمية",
+            welcomeText: "نوفر لكم أفضل الأرقام الوهمية بجودة عالية وأسعار مناسبة. اختر الرقم الذي يناسبك واستمتع بخدماتنا المميزة.",
+            adminWhatsapp: "966512345678",
+            offers: [
+                {id: 1, number: "0551234567", type: "شخصي", country: "السعودية", price: "50 ر.س", features: ["استقبال المكالمات", "استقبال الرسائل", "صالح لمدة أسبوع"]},
+                {id: 2, number: "0567654321", type: "أعمال", country: "السعودية", price: "100 ر.س", features: ["استقبال المكالمات", "استقبال الرسائل", "صالح لمدة شهر"]},
+                {id: 3, number: "971501234567", type: "مؤقت", country: "الإمارات", price: "75 ر.س", features: ["استقبال المكالمات", "صالح لمدة أسبوعين"]}
+            ],
+            requests: [],
+            isAdmin: false
         };
-        numbersTable.appendChild(tr);
 
-        // بطاقات المتجر (للزوار)
-        if(v.available){
-          const card = document.createElement('div');
-          card.className = 'card p';
-          card.innerHTML = `
-            <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
-              <div>
-                <div class="muted">${v.country||'—'}</div>
-                <div style="font-size:20px;font-weight:600">${v.number||''}</div>
-              </div>
-              <div style="text-align:left">
-                <div class="pill ok">متاح</div>
-                <div style="margin-top:8px;font-weight:700">${(v.price||0)}$</div>
-              </div>
-            </div>
-            <div class="field" style="margin-top:10px">
-              <label>اسمك (اختياري)</label>
-              <input class="input buyerName" placeholder="أكتب اسمك"/>
-            </div>
-            <button class="btn primary orderBtn">طلب عبر واتساب</button>
-          `;
-          const orderBtn = card.querySelector('.orderBtn');
-          orderBtn.addEventListener('click', ()=> placeOrder({id:d.id, ...v}, card));
-          offersWrap.appendChild(card);
+        // تحميل البيانات من localStorage إذا كانت موجودة
+        function loadData() {
+            const savedData = localStorage.getItem('virtualNumbersApp');
+            if (savedData) {
+                appData = JSON.parse(savedData);
+            }
+            updateUI();
         }
-      });
-      countBadge.textContent = `${list.filter(x=>x.available).length} المتاح`;
-    });
 
-    // بث مباشر للطلبات (إدارة)
-    onSnapshot(ordersCol, (qs)=>{
-      ordersTable.innerHTML = '';
-      qs.forEach(d=>{
-        const v = d.data();
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${d.id}</td>
-          <td>${v.number||''}</td>
-          <td>${v.price||0}$</td>
-          <td>${v.buyerName||'-'}</td>
-          <td>${v.buyerWhatsApp? ('+'+v.buyerWhatsApp):'-'}</td>
-          <td><span class="pill ${v.status==='done'?'ok': v.status==='pending'?'':'no'}">${v.status||'new'}</span></td>
-          <td>
-            <button class="btn warn" data-done="${d.id}">تم التسليم</button>
-            <button class="btn danger" data-cancel="${d.id}">إلغاء</button>
-          </td>`;
-        ordersTable.appendChild(tr);
-      });
-    });
+        // حفظ البيانات إلى localStorage
+        function saveData() {
+            localStorage.setItem('virtualNumbersApp', JSON.stringify(appData));
+            updateUI();
+        }
 
-    // حدث أزرار حالة الطلب
-    ordersTable.addEventListener('click', async (e)=>{
-      const done = e.target.getAttribute('data-done');
-      const cancel = e.target.getAttribute('data-cancel');
-      if(done){ await updateDoc(doc(db,'orders',done), {status:'done'}); }
-      if(cancel){ await updateDoc(doc(db,'orders',cancel), {status:'canceled'}); }
-    });
+        // تحديث واجهة المستخدم بناءً على البيانات
+        function updateUI() {
+            // تحديث اسم الموقع
+            document.getElementById('site-name').textContent = appData.siteName;
+            document.getElementById('site-name-input').value = appData.siteName;
+            
+            // تحديث الصفحة الترحيبية
+            document.getElementById('welcome-title').textContent = appData.welcomeTitle;
+            document.getElementById('welcome-title-input').value = appData.welcomeTitle;
+            document.getElementById('welcome-text').textContent = appData.welcomeText;
+            document.getElementById('welcome-text-input').value = appData.welcomeText;
+            
+            // تحديث رقم الواتساب
+            document.getElementById('admin-whatsapp').value = appData.adminWhatsapp;
+            
+            // تحديث العروض
+            renderOffers();
+            
+            // تحديث الطلبات إذا كان المستخدم مسؤولاً
+            if (appData.isAdmin) {
+                renderNumbersTable();
+                renderRequestsTable();
+            }
+        }
 
-    // حفظ الإعدادات
-    saveSettings.addEventListener('click', async ()=>{
-      const payload = {
-        siteName: setName.value.trim() || 'متجر الأرقام',
-        logoUrl: setLogo.value.trim(),
-        whatsappAdmin: setWhatsapp.value.trim(),
-        updatedAt: Date.now()
-      };
-      if(setNewPass.value.trim()) payload.adminPassword = setNewPass.value.trim();
-      await updateDoc(settingsRef, payload);
-      setNewPass.value = '';
-      alert('تم حفظ الإعدادات ✅');
-    });
+        // عرض العروض في الصفحة الرئيسية
+        function renderOffers() {
+            const offersContainer = document.getElementById('offers-container');
+            offersContainer.innerHTML = '';
+            
+            appData.offers.forEach(offer => {
+                const featuresList = offer.features.map(feature => `<li>${feature}</li>`).join('');
+                
+                const offerElement = `
+                    <div class="offer-card">
+                        <div class="offer-header">
+                            <h3>${offer.type} - ${offer.country}</h3>
+                        </div>
+                        <div class="offer-body">
+                            <h4>${offer.number}</h4>
+                            <div class="offer-price">${offer.price}</div>
+                            <ul class="offer-features">
+                                ${featuresList}
+                            </ul>
+                            <button class="btn" style="width:100%" onclick="selectOffer(${offer.id})">اختيار هذا الرقم</button>
+                        </div>
+                    </div>
+                `;
+                
+                offersContainer.innerHTML += offerElement;
+            });
+        }
 
-    // إضافة/تعديل رقم
-    saveNumber.addEventListener('click', async ()=>{
-      const val = {
-        country: (numCountry.value||'').trim(),
-        number: (numNumber.value||'').trim(),
-        price: Number(numPrice.value||0),
-        available: numAvailable.value === 'true'
-      };
-      if(numId.value.trim()){
-        await updateDoc(doc(db,'numbers',numId.value.trim()), val);
-        alert('تم التحديث ✅');
-      } else {
-        const ref = await addDoc(numbersCol, val);
-        numId.value = ref.id;
-        alert('تمت الإضافة ✅');
-      }
-    });
+        // عرض جدول الأرقام في لوحة التحكم
+        function renderNumbersTable() {
+            const tableBody = document.getElementById('numbers-table-body');
+            tableBody.innerHTML = '';
+            
+            appData.offers.forEach(offer => {
+                const row = `
+                    <tr>
+                        <td>${offer.number}</td>
+                        <td>${offer.type}</td>
+                        <td>${offer.country}</td>
+                        <td>${offer.price}</td>
+                        <td>
+                            <button onclick="editOffer(${offer.id})">تعديل</button>
+                            <button onclick="deleteOffer(${offer.id})">حذف</button>
+                        </td>
+                    </tr>
+                `;
+                
+                tableBody.innerHTML += row;
+            });
+        }
 
-    // حذف رقم
-    deleteNumberBtn.addEventListener('click', async ()=>{
-      const id = numId.value.trim();
-      if(!id) return alert('أدخل المعرف أولاً');
-      await deleteDoc(doc(db,'numbers',id));
-      alert('تم الحذف 🗑️');
-      numId.value = numCountry.value = numNumber.value = numPrice.value = '';
-      numAvailable.value = 'true';
-    });
+        // عرض جدول الطلبات في لوحة التحكم
+        function renderRequestsTable() {
+            const tableBody = document.getElementById('requests-table-body');
+            tableBody.innerHTML = '';
+            
+            appData.requests.forEach((request, index) => {
+                const row = `
+                    <tr>
+                        <td>${request.date}</td>
+                        <td>${request.type}</td>
+                        <td>${request.country}</td>
+                        <td>${request.duration} أسبوع</td>
+                        <td>${request.status || 'قيد المراجعة'}</td>
+                        <td>
+                            <button onclick="updateRequestStatus(${index}, 'موافق')">موافق</button>
+                            <button onclick="updateRequestStatus(${index}, 'مرفوض')">رفض</button>
+                        </td>
+                    </tr>
+                `;
+                
+                tableBody.innerHTML += row;
+            });
+        }
 
-    // فلترة البحث
-    searchInput?.addEventListener('input', ()=>{
-      const q = searchInput.value.trim().toLowerCase();
-      [...offersWrap.children].forEach(card=>{
-        const txt = card.textContent.toLowerCase();
-        card.style.display = txt.includes(q)? 'block':'none';
-      });
-    });
+        // تبديل الصفحات
+        function showPage(pageId) {
+            document.getElementById('welcome-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'none';
+            
+            if (pageId === 'welcome') {
+                document.getElementById('welcome-page').style.display = 'flex';
+            } else if (pageId === 'main') {
+                document.getElementById('main-page').style.display = 'block';
+            } else if (pageId === 'admin') {
+                document.getElementById('admin-panel').style.display = 'block';
+            }
+        }
 
-    // وضع الطلب: كتابة إلى Firestore + فتح واتساب
-    async function placeOrder(item, card){
-      const sSnap = await getDoc(settingsRef);
-      const s = sSnap.data()||{};
-      const adminWa = (s.whatsappAdmin||'').replace(/\D/g,'');
-      if(!adminWa){
-        alert('رقم واتساب المسؤول غير مضبوط بعد.');
-        return;
-      }
-      const buyerName = card.querySelector('.buyerName')?.value.trim() || '';
-      const payload = {
-        numberId: item.id,
-        number: item.number,
-        price: item.price,
-        buyerName,
-        buyerWhatsApp: '',
-        status: 'pending',
-        createdAt: Date.now()
-      };
-      const ref = await addDoc(ordersCol, payload);
-      const text = encodeURIComponent(`طلب جديد #${ref.id}\nرقم: ${item.number} (${item.country})\nالسعر: ${item.price}$\nالاسم: ${buyerName||'-'}\nرابط الطلب: ${location.origin + location.pathname + '#/admin'}`);
-      const waUrl = `https://wa.me/${adminWa}?text=${text}`;
-      window.open(waUrl,'_blank');
-    }
+        // إرسال طلب جديد
+        function sendRequest() {
+            const typeSelect = document.getElementById('phone-type');
+            const countrySelect = document.getElementById('country');
+            const durationSelect = document.getElementById('duration');
+            const notes = document.getElementById('notes');
+            
+            const request = {
+                date: new Date().toLocaleString('ar-SA'),
+                type: typeSelect.options[typeSelect.selectedIndex].text,
+                country: countrySelect.options[countrySelect.selectedIndex].text,
+                duration: durationSelect.value,
+                notes: notes.value
+            };
+            
+            appData.requests.push(request);
+            saveData();
+            
+            // إرسال الطلب عبر واتساب
+            const message = `طلب جديد لرقم وهمي:%0A%0Aالنوع: ${request.type}%0Aالبلد: ${request.country}%0AMدة الاستخدام: ${request.duration} أسبوع%0Aملاحظات: ${request.notes}`;
+            window.open(`https://wa.me/${appData.adminWhatsapp}?text=${message}`, '_blank');
+            
+            // إظهار إشعار
+            showNotification('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
+            
+            // تفريغ الحقول
+            typeSelect.selectedIndex = 0;
+            countrySelect.selectedIndex = 0;
+            durationSelect.selectedIndex = 0;
+            notes.value = '';
+        }
 
-    // ====== 4) تسجيل دخول بسيط للمسؤول (عميل فقط) ======
-    let isAdmin = false;
-    loginBtn.addEventListener('click', async ()=>{
-      const sSnap = await getDoc(settingsRef);
-      const s = sSnap.data()||{};
-      const ok = (adminPass.value.trim() === (s.adminPassword||''));
-      if(ok){
-        isAdmin = true;
-        localStorage.setItem('isAdmin','1');
-        adminLogin.classList.add('hidden');
-        adminPanel.classList.remove('hidden');
-      } else {
-        alert('كلمة المرور غير صحيحة');
-      }
-    });
-    logoutBtn.addEventListener('click', ()=>{
-      isAdmin = false; localStorage.removeItem('isAdmin');
-      adminPanel.classList.add('hidden');
-      adminLogin.classList.remove('hidden');
-    });
+        // تسجيل دخول المسؤول
+        function adminLogin() {
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+            
+            // في تطبيق حقيقي، يجب التحقق من اسم المستخدم وكلمة المرور عبر الخادم
+            if (username === 'admin' && password === 'admin123') {
+                appData.isAdmin = true;
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-dashboard').style.display = 'block';
+                renderNumbersTable();
+                renderRequestsTable();
+            } else {
+                showNotification('اسم المستخدم أو كلمة المرور غير صحيحة!');
+            }
+        }
 
-    // استعادة جلسة
-    if(localStorage.getItem('isAdmin')==='1'){
-      adminLogin.classList.add('hidden');
-      adminPanel.classList.remove('hidden');
-    }
+        // تبديل علامات التبويب في لوحة التحكم
+        function showAdminTab(tabId) {
+            document.querySelectorAll('.admin-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-content').forEach(content => content.style.display = 'none');
+            
+            document.getElementById(`admin-${tabId}`).style.display = 'block';
+            event.target.classList.add('active');
+        }
 
-    // تبديل التبويبات داخل لوحة التحكم
-    function switchTab(id){
-      ['tab-settings','tab-numbers','tab-orders'].forEach(t=>{
-        document.getElementById(t).classList.toggle('hidden', t!==id);
-      })
-    }
-    document.querySelectorAll('#adminPanel [data-tab]').forEach(btn=>{
-      btn.addEventListener('click', ()=> switchTab(btn.getAttribute('data-tab')));
-    });
+        // تحديث إعدادات الموقع
+        function updateSiteSettings() {
+            appData.siteName = document.getElementById('site-name-input').value;
+            appData.welcomeTitle = document.getElementById('welcome-title-input').value;
+            appData.welcomeText = document.getElementById('welcome-text-input').value;
+            appData.adminWhatsapp = document.getElementById('admin-whatsapp').value;
+            
+            saveData();
+            showNotification('تم حفظ الإعدادات بنجاح!');
+        }
 
-    // ====== 5) توجيه الصفحات (SPA عبر hash) ======
-    function route(){
-      const hash = location.hash || '#/welcome';
-      Object.values(pages).forEach(p=>p.classList.add('hidden'));
-      if(hash.startsWith('#/welcome')) pages.welcome.classList.remove('hidden');
-      else if(hash.startsWith('#/home')) pages.home.classList.remove('hidden');
-      else if(hash.startsWith('#/faq')) pages.faq.classList.remove('hidden');
-      else if(hash.startsWith('#/admin')) pages.admin.classList.remove('hidden');
-      else pages.welcome.classList.remove('hidden');
-    }
-    window.addEventListener('hashchange', route);
+        // إضافة رقم جديد
+        function addNewNumber() {
+            const newNumber = prompt('أدخل الرقم الجديد:');
+            if (newNumber) {
+                const newType = prompt('أدخل نوع الرقم:');
+                const newCountry = prompt('أدخل البلد:');
+                const newPrice = prompt('أدخل السعر:');
+                
+                if (newType && newCountry && newPrice) {
+                    const newId = appData.offers.length > 0 ? Math.max(...appData.offers.map(o => o.id)) + 1 : 1;
+                    
+                    appData.offers.push({
+                        id: newId,
+                        number: newNumber,
+                        type: newType,
+                        country: newCountry,
+                        price: newPrice,
+                        features: ["استقبال المكالمات", "استقبال الرسائل", "صالح لمدة أسبوع"]
+                    });
+                    
+                    saveData();
+                    showNotification('تم إضافة الرقم بنجاح!');
+                }
+            }
+        }
 
-    // ====== 6) تشغيل أولي ======
-    ensureDefaults().then(()=>{
-      route();
-    });
-  </script>
+        // تعديل عرض موجود
+        function editOffer(id) {
+            const offer = appData.offers.find(o => o.id === id);
+            if (offer) {
+                const newNumber = prompt('عدل الرقم:', offer.number);
+                if (newNumber !== null) {
+                    const newType = prompt('عدل النوع:', offer.type);
+                    const newCountry = prompt('عدل البلد:', offer.country);
+                    const newPrice = prompt('عدل السعر:', offer.price);
+                    
+                    if (newType !== null && newCountry !== null && newPrice !== null) {
+                        offer.number = newNumber;
+                        offer.type = newType;
+                        offer.country = newCountry;
+                        offer.price = newPrice;
+                        
+                        saveData();
+                        showNotification('تم تعديل الرقم بنجاح!');
+                    }
+                }
+            }
+        }
+
+        // حذف عرض
+        function deleteOffer(id) {
+            if (confirm('هل أنت متأكد من حذف هذا الرقم؟')) {
+                appData.offers = appData.offers.filter(o => o.id !== id);
+                saveData();
+                showNotification('تم حذف الرقم بنجاح!');
+            }
+        }
+
+        // تحديث حالة الطلب
+        function updateRequestStatus(index, status) {
+            appData.requests[index].status = status;
+            saveData();
+            renderRequestsTable();
+            showNotification(`تم تحديث حالة الطلب إلى: ${status}`);
+        }
+
+        // اختيار عرض
+        function selectOffer(id) {
+            const offer = appData.offers.find(o => o.id === id);
+            if (offer) {
+                document.getElementById('phone-type').value = offer.type === 'شخصي' ? 'personal' : 
+                                                           offer.type === 'أعمال' ? 'business' : 'temporary';
+                document.getElementById('country').value = offer.country === 'السعودية' ? 'saudi' : 
+                                                         offer.country === 'الإمارات' ? 'uae' : 
+                                                         offer.country === 'الكويت' ? 'kuwait' : 'egypt';
+                showNotification(`تم اختيار الرقم: ${offer.number}`);
+            }
+        }
+
+        // إظهار إشعار
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // تهيئة التطبيق عند التحميل
+        window.onload = function() {
+            loadData();
+            showPage('welcome');
+        };
+    </script>
 </body>
 </html>
