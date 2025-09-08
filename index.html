@@ -516,7 +516,7 @@
             welcomeText: "نوفر لكم أفضل الأرقام الوهمية بجودة عالية وأسعار مناسبة. اختر الرقم الذي يناسبك واستمتع بخدماتنا المميزة.",
             adminWhatsapp: "976711771251",
             offers: [
-                {id: 1, number: "711771251", type: "اتصال", country: "اليمن", price: "50 ر.س", features: ["استقبال المكالمات", "استقبال الرسائل"اكرم كمال"]},
+                {id: 1, number: "773241773", type: "شخصي", country: "السعودية", price: "50 ر.س", features: ["استقبال المكالمات", "استقبال الرسائل", "صالح لمدة أسبوع"]},
                 {id: 2, number: "0567654321", type: "أعمال", country: "السعودية", price: "100 ر.س", features: ["استقبال المكالمات", "استقبال الرسائل", "صالح لمدة شهر"]},
                 {id: 3, number: "971501234567", type: "مؤقت", country: "الإمارات", price: "75 ر.س", features: ["استقبال المكالمات", "صالح لمدة أسبوعين"]}
             ],
@@ -655,37 +655,36 @@
         }
 
         // إرسال طلب جديد
-  // إرسال طلب جديد
-function sendRequest() {
-    const typeSelect = document.getElementById('phone-type');
-    const countrySelect = document.getElementById('country');
-    const durationSelect = document.getElementById('duration');
-    const notes = document.getElementById('notes');
-    
-    const request = {
-        date: new Date().toLocaleString('ar-SA'),
-        type: typeSelect.options[typeSelect.selectedIndex].text,
-        country: countrySelect.options[countrySelect.selectedIndex].text,
-        duration: durationSelect.value,
-        notes: notes.value
-    };
-    
-    appData.requests.push(request);
-    saveData();
-    
-    // إرسال الطلب عبر واتساب إلى الرقم الثابت 967711771251 (مع رمز الدولة)
-    const message = `طلب جديد لرقم وهمي:%0A%0Aالنوع: ${request.type}%0Aالبلد: ${request.country}%0Aمدة الاستخدام: ${request.duration} أسبوع%0Aملاحظات: ${request.notes}`;
-    window.open(`https://wa.me/967711771251?text=${message}`, '_blank');
-    
-    // إظهار إشعار
-    showNotification('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
-    
-    // تفريغ الحقول
-    typeSelect.selectedIndex = 0;
-    countrySelect.selectedIndex = 0;
-    durationSelect.selectedIndex = 0;
-    notes.value = '';
-}
+        function sendRequest() {
+            const typeSelect = document.getElementById('phone-type');
+            const countrySelect = document.getElementById('country');
+            const durationSelect = document.getElementById('duration');
+            const notes = document.getElementById('notes');
+            
+            const request = {
+                date: new Date().toLocaleString('ar-SA'),
+                type: typeSelect.options[typeSelect.selectedIndex].text,
+                country: countrySelect.options[countrySelect.selectedIndex].text,
+                duration: durationSelect.value,
+                notes: notes.value
+            };
+            
+            appData.requests.push(request);
+            saveData();
+            
+            // إرسال الطلب عبر واتساب
+            const message = `طلب جديد لرقم وهمي:%0A%0Aالنوع: ${request.type}%0Aالبلد: ${request.country}%0AMدة الاستخدام: ${request.duration} أسبوع%0Aملاحظات: ${request.notes}`;
+            window.open(`https://wa.me/${appData.adminWhatsapp}?text=${message}`, '_blank');
+            
+            // إظهار إشعار
+            showNotification('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
+            
+            // تفريغ الحقول
+            typeSelect.selectedIndex = 0;
+            countrySelect.selectedIndex = 0;
+            durationSelect.selectedIndex = 0;
+            notes.value = '';
+        }
 
         // تسجيل دخول المسؤول
         function adminLogin() {
@@ -822,6 +821,4 @@ function sendRequest() {
     </script>
 </body>
 </html>
-
-
-
+لا اريدك ان تعدل شي فقط قم بادخال الرقم هذا 711771251 عندما شخص يريد عرض معين فيصل الى العرض المطلوب الى واتساب هذا الرقم
