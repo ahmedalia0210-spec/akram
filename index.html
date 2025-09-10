@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بيع الأرقام الوهمية</title>
+    <title>متجر الأرقام الوهمية</title>
     <style>
         :root {
             --primary-color: #4CAF50;
@@ -104,6 +104,19 @@
             box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
         
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+        
         @media (max-width: 768px) {
             .numbers-grid {
                 grid-template-columns: 1fr;
@@ -112,6 +125,8 @@
     </style>
 </head>
 <body>
+    <div class="notification" id="notification">جاري إرسال طلبك إلى البائع...</div>
+    
     <header>
         <div class="container">
             <h1>متجر الأرقام الوهمية</h1>
@@ -119,52 +134,8 @@
     </header>
     
     <div class="container">
-        <div class="numbers-grid">
-            <?php
-            // قائمة الأرقام المتاحة للبيع - يمكنك تعديلها بسهولة
-            $available_numbers = array(
-                array(
-                    "number" => "967123456789",
-                    "price" => "5 دولارات",
-                    "description" => "رقم يمني جديد للواتساب والتلغرام"
-                ),
-                array(
-                    "number" => "967987654321",
-                    "price" => "7 دولارات",
-                    "description" => "رقم يمني مميز برسائل تأكيد"
-                ),
-                array(
-                    "number" => "967555123456",
-                    "price" => "6 دولارات",
-                    "description" => "رقم يمني لتطبيقات التواصل الاجتماعي"
-                ),
-                array(
-                    "number" => "967777888999",
-                    "price" => "8 دولارات",
-                    "description" => "رقم يمني مضمون للاستخدام الطويل"
-                ),
-                array(
-                    "number" => "967444555666",
-                    "price" => "4 دولارات",
-                    "description" => "رقم يمني اقتصادي للمشاريع الصغيرة"
-                ),
-                array(
-                    "number" => "967666333222",
-                    "price" => "10 دولارات",
-                    "description" => "رقم يمني مميز برقم تسلسلي جميل"
-                )
-            );
-            
-            // عرض الأرقام في الشبكة
-            foreach ($available_numbers as $item) {
-                echo '<div class="number-card">';
-                echo '<div class="number">+' . $item['number'] . '</div>';
-                echo '<div class="price">' . $item['price'] . '</div>';
-                echo '<div class="description">' . $item['description'] . '</div>';
-                echo '<button class="buy-btn" onclick="buyNumber(\'' . $item['number'] . '\')">شراء الرقم</button>';
-                echo '</div>';
-            }
-            ?>
+        <div class="numbers-grid" id="numbers-grid">
+            <!-- سيتم ملء الأرقام ديناميكيًا باستخدام JavaScript -->
         </div>
     </div>
     
@@ -175,7 +146,65 @@
     </footer>
 
     <script>
+        // بيانات الأرقام - يمكنك تعديلها بسهولة
+        const availableNumbers = [
+            {
+                number: "967123456789",
+                price: "5 دولارات",
+                description: "رقم يمني جديد للواتساب والتلغرام"
+            },
+            {
+                number: "967987654321",
+                price: "7 دولارات",
+                description: "رقم يمني مميز برسائل تأكيد"
+            },
+            {
+                number: "967555123456",
+                price: "6 دولارات",
+                description: "رقم يمني لتطبيقات التواصل الاجتماعي"
+            },
+            {
+                number: "967777888999",
+                price: "8 دولارات",
+                description: "رقم يمني مضمون للاستخدام الطويل"
+            },
+            {
+                number: "967444555666",
+                price: "4 دولارات",
+                description: "رقم يمني اقتصادي للمشاريع الصغيرة"
+            },
+            {
+                number: "967666333222",
+                price: "10 دولارات",
+                description: "رقم يمني مميز برقم تسلسلي جميل"
+            }
+        ];
+        
+        // عرض الأرقام في الصفحة
+        function renderNumbers() {
+            const numbersGrid = document.getElementById('numbers-grid');
+            numbersGrid.innerHTML = '';
+            
+            availableNumbers.forEach(item => {
+                const numberCard = document.createElement('div');
+                numberCard.className = 'number-card';
+                numberCard.innerHTML = `
+                    <div class="number">+${item.number}</div>
+                    <div class="price">${item.price}</div>
+                    <div class="description">${item.description}</div>
+                    <button class="buy-btn" onclick="buyNumber('${item.number}')">شراء الرقم</button>
+                `;
+                numbersGrid.appendChild(numberCard);
+            });
+        }
+        
+        // شراء رقم
         function buyNumber(number) {
+            // عرض إشعار للمستخدم
+            const notification = document.getElementById('notification');
+            notification.textContent = `جاري إرسال طلب شراء الرقم +${number} إلى البائع...`;
+            notification.style.display = 'block';
+            
             // رسالة واتساب مخصصة
             const message = `مرحباً، أرغب في شراء الرقم: +${number}`;
             
@@ -185,9 +214,19 @@
             // إنشاء رابط واتساب
             const whatsappURL = `https://wa.me/967711771251?text=${encodedMessage}`;
             
-            // فتح الرابط في نافذة جديدة
-            window.open(whatsappURL, '_blank');
+            // فتح الرابط في نافذة جديدة بعد ثانيتين
+            setTimeout(() => {
+                window.open(whatsappURL, '_blank');
+                
+                // إخفاء الإشعار بعد 3 ثواني
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }, 2000);
         }
+        
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', renderNumbers);
     </script>
 </body>
 </html>
